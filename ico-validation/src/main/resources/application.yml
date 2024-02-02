@@ -1,0 +1,8 @@
+spring: 
+ main:
+    allow-bean-definition-overriding: true         
+server:
+  port: 8080
+logging:  level:     root: info  pattern:    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:    name:  logs/mylog.log 
+
