@@ -13,7 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.ntt.es.model.SolicitudFinanciacionDTO;
+import com.ntt.es.model.DatosTitularesDto;
+import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.service.SolicitudService;
 
 @Service
@@ -22,7 +23,7 @@ public class SolicitudServiceImpl implements SolicitudService {
 	private static Logger log = LoggerFactory.getLogger(SolicitudServiceImpl.class);
 
 	@Override
-	public int guardarSolicitud(SolicitudFinanciacionDTO solicitud) {
+	public int guardarSolicitud(SolicitudFinanciacionDto solicitud) {
 
 		log.debug("guardando solicitud");
 
@@ -33,17 +34,17 @@ public class SolicitudServiceImpl implements SolicitudService {
 		return 0;
 
 	}
-
+	
+	
 	@Override
-	public int guardarSolicitudParcial(SolicitudFinanciacionDTO solicitud) {
-
-		log.debug("guardando borrador");
-
-		// TODO llamar al repository y guardado
-
-		log.debug("borrador guardado");
-
-		return 0;
+	public void guardarTitulares(DatosTitularesDto titulares) {
+				
+		log.debug("guardando titulares");
+		
+		// TODO  logica de guardar los titulares en bbdd
+		
+		log.debug("titulares guardados");
+		
 	}
 
 	public List<String> validate() {
@@ -55,11 +56,11 @@ public class SolicitudServiceImpl implements SolicitudService {
 		Validator validator = factory.getValidator();
 
 		// Crea tu objeto a validar o lo que conviertes del xml
-		SolicitudFinanciacionDTO solicitud = new SolicitudFinanciacionDTO();
+		SolicitudFinanciacionDto solicitud = new SolicitudFinanciacionDto();
 		solicitud.setLinea("ICO MRR Promoción Vivienda Social");
 
 		// Realiza la validación
-		Set<ConstraintViolation<SolicitudFinanciacionDTO>> violations = validator.validate(solicitud);
+		Set<ConstraintViolation<SolicitudFinanciacionDto>> violations = validator.validate(solicitud);
 
 		violations.forEach(v -> {
 			errores.add(v.getMessage());
@@ -68,4 +69,6 @@ public class SolicitudServiceImpl implements SolicitudService {
 		return errores;
 
 	}
+
+	
 }

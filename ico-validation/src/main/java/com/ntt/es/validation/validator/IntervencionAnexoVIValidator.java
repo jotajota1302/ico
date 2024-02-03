@@ -9,11 +9,11 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ntt.es.model.SolicitudFinanciacionDTO;
+import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarIntervencionAnexoVI;
 
 public class IntervencionAnexoVIValidator
-		implements ConstraintValidator<ValidarIntervencionAnexoVI, SolicitudFinanciacionDTO> {
+		implements ConstraintValidator<ValidarIntervencionAnexoVI, SolicitudFinanciacionDto> {
 
 	private static Logger log = LoggerFactory.getLogger(IntervencionAnexoVIValidator.class);
 
@@ -22,7 +22,7 @@ public class IntervencionAnexoVIValidator
 	}
 
 	@Override
-	public boolean isValid(SolicitudFinanciacionDTO dto, ConstraintValidatorContext context) {
+	public boolean isValid(SolicitudFinanciacionDto dto, ConstraintValidatorContext context) {
 		
 	    log.debug("Validando la intervención del AnexoVI");
 

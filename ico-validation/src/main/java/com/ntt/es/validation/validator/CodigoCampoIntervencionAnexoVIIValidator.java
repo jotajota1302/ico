@@ -9,11 +9,11 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ntt.es.model.SolicitudFinanciacionDTO;
+import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarCodigoCampoIntervencionAnexoVII;
 
 public class CodigoCampoIntervencionAnexoVIIValidator
-		implements ConstraintValidator<ValidarCodigoCampoIntervencionAnexoVII, SolicitudFinanciacionDTO> {
+		implements ConstraintValidator<ValidarCodigoCampoIntervencionAnexoVII, SolicitudFinanciacionDto> {
 
 	private static Logger log = LoggerFactory.getLogger(CodigoCampoIntervencionAnexoVIIValidator.class);
 
@@ -22,7 +22,7 @@ public class CodigoCampoIntervencionAnexoVIIValidator
 	}
 
 	@Override
-	public boolean isValid(SolicitudFinanciacionDTO dto, ConstraintValidatorContext context) {
+	public boolean isValid(SolicitudFinanciacionDto dto, ConstraintValidatorContext context) {
 
 		log.debug("validando el codigo campo intervencion del Anexo VII");
 

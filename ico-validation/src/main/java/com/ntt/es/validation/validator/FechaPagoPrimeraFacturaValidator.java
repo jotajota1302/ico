@@ -9,11 +9,11 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ntt.es.model.SolicitudFinanciacionDTO;
+import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarFechaPagoPrimeraFactura;
 
 public class FechaPagoPrimeraFacturaValidator
-		implements ConstraintValidator<ValidarFechaPagoPrimeraFactura, SolicitudFinanciacionDTO> {
+		implements ConstraintValidator<ValidarFechaPagoPrimeraFactura, SolicitudFinanciacionDto> {
 
 	private static Logger log = LoggerFactory.getLogger(FechaPagoPrimeraFacturaValidator.class);
 
@@ -22,7 +22,7 @@ public class FechaPagoPrimeraFacturaValidator
 	}
 
 	@Override
-	public boolean isValid(SolicitudFinanciacionDTO dto, ConstraintValidatorContext context) {
+	public boolean isValid(SolicitudFinanciacionDto dto, ConstraintValidatorContext context) {
 
 		log.debug("Validando la fecha de pago de la primera factura");
 

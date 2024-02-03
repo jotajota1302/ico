@@ -6,10 +6,10 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ntt.es.model.SolicitudFinanciacionDTO;
+import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarCategoriaDigitalizacion;
 
-public class CategoriaDigitalizacionValidator implements ConstraintValidator<ValidarCategoriaDigitalizacion, SolicitudFinanciacionDTO> {
+public class CategoriaDigitalizacionValidator implements ConstraintValidator<ValidarCategoriaDigitalizacion, SolicitudFinanciacionDto> {
 
 	private static Logger log = LoggerFactory.getLogger(CategoriaDigitalizacionValidator.class);
 	
@@ -18,7 +18,7 @@ public class CategoriaDigitalizacionValidator implements ConstraintValidator<Val
     }
 
     @Override
-    public boolean isValid(SolicitudFinanciacionDTO dto, ConstraintValidatorContext context) {
+    public boolean isValid(SolicitudFinanciacionDto dto, ConstraintValidatorContext context) {
   
     	log.debug("validando la categoria de digitalizacion");
     	

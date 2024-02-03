@@ -9,10 +9,10 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ntt.es.model.SolicitudFinanciacionDTO;
+import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarPaisDestinoInversion;
 
-public class PaisDestinoInversionValidator implements ConstraintValidator<ValidarPaisDestinoInversion, SolicitudFinanciacionDTO> {
+public class PaisDestinoInversionValidator implements ConstraintValidator<ValidarPaisDestinoInversion, SolicitudFinanciacionDto> {
 
 	private static Logger log = LoggerFactory.getLogger(PaisDestinoInversionValidator.class);
 	
@@ -21,7 +21,7 @@ public class PaisDestinoInversionValidator implements ConstraintValidator<Valida
     }
 
     @Override
-    public boolean isValid(SolicitudFinanciacionDTO dto, ConstraintValidatorContext context) {
+    public boolean isValid(SolicitudFinanciacionDto dto, ConstraintValidatorContext context) {
     	
     	log.debug("validando el pais destino Inversion");
 

@@ -27,7 +27,7 @@ import lombok.Data;
 @ValidarFechaPagoPrimeraFactura
 @ValidarIntervencionAnexoVI
 @ValidarCodigoCampoIntervencionAnexoVII
-public class SolicitudFinanciacionDTO {
+public class SolicitudFinanciacionDto {
 
 	@NotBlank(message = "El campo Línea es obligatorio.")
 	private String linea;
@@ -75,6 +75,7 @@ public class SolicitudFinanciacionDTO {
 	@NotBlank
 	private String porcentajeIntervencionAnexoVI;
 
+	@NotBlank
 	private String codigoCampoIntervencionAnexoVII;
 	
 	@NotBlank

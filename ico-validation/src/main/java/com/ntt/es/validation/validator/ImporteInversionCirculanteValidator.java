@@ -9,11 +9,11 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ntt.es.model.SolicitudFinanciacionDTO;
+import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarImporteInversionCirculante;
 
 public class ImporteInversionCirculanteValidator
-		implements ConstraintValidator<ValidarImporteInversionCirculante, SolicitudFinanciacionDTO> {
+		implements ConstraintValidator<ValidarImporteInversionCirculante, SolicitudFinanciacionDto> {
 
 	private static Logger log = LoggerFactory.getLogger(ImporteInversionCirculanteValidator.class);
 	
@@ -22,7 +22,7 @@ public class ImporteInversionCirculanteValidator
 	}
 
 	@Override
-	public boolean isValid(SolicitudFinanciacionDTO dto, ConstraintValidatorContext context) {
+	public boolean isValid(SolicitudFinanciacionDto dto, ConstraintValidatorContext context) {
 
 		log.debug("validando el Importe de Inversion Circulante");
 		

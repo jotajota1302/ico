@@ -2,13 +2,14 @@ package com.ntt.es.service;
 
 import java.util.List;
 
-import com.ntt.es.model.SolicitudFinanciacionDTO;
+import com.ntt.es.model.DatosTitularesDto;
+import com.ntt.es.model.SolicitudFinanciacionDto;
 
 public interface SolicitudService {
 	
-	public int guardarSolicitud(SolicitudFinanciacionDTO solicitud);
+	public int guardarSolicitud(SolicitudFinanciacionDto solicitud);
 	
-	public int guardarSolicitudParcial(SolicitudFinanciacionDTO solicitud);
+	public void guardarTitulares(DatosTitularesDto titulares);
 	
 	public List<?> validate();
 
