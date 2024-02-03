@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.ntt.es.model.DatosAdicionalesDto;
 import com.ntt.es.model.DatosTitularesDto;
 import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.service.SolicitudService;
@@ -37,13 +38,24 @@ public class SolicitudServiceImpl implements SolicitudService {
 	
 	
 	@Override
-	public void guardarTitulares(DatosTitularesDto titulares) {
+	public void guardarDatosTitulares(DatosTitularesDto titulares) {
 				
 		log.debug("guardando titulares");
 		
 		// TODO  logica de guardar los titulares en bbdd
 		
-		log.debug("titulares guardados");
+		log.debug("datos titulares guardados");
+		
+	}
+	
+	@Override
+	public void guardarDatosAdicionales(DatosAdicionalesDto adicionales) {
+		
+		log.debug("guardando adicionales");
+		
+		// TODO  logica de guardar los titulares en bbdd
+		
+		log.debug("datos adicionales guardados");
 		
 	}
 
@@ -69,6 +81,9 @@ public class SolicitudServiceImpl implements SolicitudService {
 		return errores;
 
 	}
+
+
+	
 
 	
 }

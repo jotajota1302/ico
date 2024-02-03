@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import com.ntt.es.validation.annotations.ValidarTipoCliente;
-import com.ntt.es.validation.groups.TipoCliente;
 
 import lombok.Data;
 
@@ -49,22 +48,22 @@ public class DatosTitularesDto {
 	
 	//Validaciones solo para autonomos y Hogar
 	
-	@NotBlank(message = "El campo 'DNI no puede estar vacío'", groups = {TipoCliente.Autonomo.class, TipoCliente.Hogar.class})
-	@Pattern(regexp = "^[0-9A-Za-z]{9}$", message = "El NIF/NIE titular no es válido", groups = {TipoCliente.Autonomo.class, TipoCliente.Hogar.class})
+	@NotBlank(message = "El campo 'DNI no puede estar vacío'")
+	@Pattern(regexp = "^[0-9A-Za-z]{9}$", message = "El NIF/NIE titular no es válido")
 	private String dniNieTitular;
 	
-    @NotBlank(message = "El campo 'Nombre titular' no puede estar vacio", groups = {TipoCliente.Autonomo.class,TipoCliente.Hogar.class})
-    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Nombre titular solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ",groups = {TipoCliente.Autonomo.class,TipoCliente.Hogar.class})
+    @NotBlank(message = "El campo 'Nombre titular' no puede estar vacio")
+    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Nombre titular solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ")
     private String nombreTitular;
     
-    @NotNull(message = "El campo 'Fecha de nacimiento' no puede ser nulo", groups = {TipoCliente.Autonomo.class,TipoCliente.Hogar.class})
+    @NotNull(message = "El campo 'Fecha de nacimiento' no puede ser nulo")
     private LocalDate fechaNacimiento;
 
-    @NotNull(message = "El campo 'Primer apellido titular' no puede ser nulo", groups = {TipoCliente.Autonomo.class, TipoCliente.Hogar.class})
-    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Primer apellido titular solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ", groups = {TipoCliente.Autonomo.class, TipoCliente.Hogar.class})
+    @NotNull(message = "El campo 'Primer apellido titular' no puede ser nulo")
+    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Primer apellido titular solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ")
     private String primerApellidoTitular;
 
-    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Segundo apellido solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ", groups = {TipoCliente.Autonomo.class, TipoCliente.Hogar.class})
+    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Segundo apellido solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ")
     private String segundoApellidoTitular;
 
 
