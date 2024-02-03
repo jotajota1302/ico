@@ -28,7 +28,9 @@ import lombok.Data;
 @ValidarIntervencionAnexoVI
 @ValidarCodigoCampoIntervencionAnexoVII
 public class SolicitudFinanciacionDto {
-
+		
+	private String entidad;
+	
 	@NotBlank(message = "El campo Línea es obligatorio.")
 	private String linea;
 
@@ -50,6 +52,7 @@ public class SolicitudFinanciacionDto {
 
 	private double importeTotalInversion;
 
+	//(Identificador - pais)
 	private String paisDestinoInversion;
 
 	private String codigoPostalInversion;

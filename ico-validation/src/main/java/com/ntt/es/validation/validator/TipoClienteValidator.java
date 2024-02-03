@@ -3,42 +3,75 @@ package com.ntt.es.validation.validator;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ntt.es.model.DatosTitularesDto;
 import com.ntt.es.validation.annotations.ValidarTipoCliente;
 
 public class TipoClienteValidator implements ConstraintValidator<ValidarTipoCliente, DatosTitularesDto> {
 
-	@Override
-	public void initialize(ValidarTipoCliente constraintAnnotation) {
-	}
+	private static final String EMPRESA_PUBLICA = "Empresa pública";
+	private static final String UNIVERSIDAD_ESPANOLA = "Universidad española";
+	private static final String HOGAR = "Hogar";
+	private static final String AUTONOMO = "Autónomo";
+	private static final String EMPRESA_PRIVADA = "Empresa privada";
+
+	@Autowired
+	EmpresaPrivadaValidator empresaPrivadaValidator;
+	
+	@Autowired
+	EmpresaPublicaValidator empresaPublicaValidator;
 	
 	@Override
 	public boolean isValid(DatosTitularesDto dto, ConstraintValidatorContext context) {
 
+		boolean isValid=true;
+		
 		// Verificar el tipo de línea seleccionada
-		String lineaSeleccionada = dto.getLinea();
+		isValid=validaLineaTipoCliente(dto, dto.getLinea());
+
+		if(!isValid) {
+			context.disableDefaultConstraintViolation();
+			 context.buildConstraintViolationWithTemplate("La linea no coincide con el tipo de cliente.")
+             .addPropertyNode("razonSocialTitular")
+             .addConstraintViolation();
+		}	       
+		
+		if (EMPRESA_PRIVADA.equals( dto.getTipoCliente())) {			
+	            if (!empresaPrivadaValidator.isValid(dto, context)) {
+	                isValid=false;
+	            }
+		}		
+		if (EMPRESA_PUBLICA.equals( dto.getTipoCliente())) {		
+	            if (!empresaPublicaValidator.isValid(dto, context)) {
+	            	isValid=false;
+	            }
+		}
+		
+		return isValid;
+	}
+
+	private boolean validaLineaTipoCliente(DatosTitularesDto dto, String lineaSeleccionada) {
 
 		// Validar el tipo de cliente según la línea seleccionada
+		
 		if ("ICO MRR Verde".equals(lineaSeleccionada)
 				|| "ICO MRR Verde – PERTE Energía Renovable, Hidrógeno y Almacenamiento".equals(lineaSeleccionada)) {
-			return esTipoClienteValido(dto.getTipoCliente(),
-					new String[] { "Empresa privada", "Autónomo", "Hogar" });
+			return esTipoClienteValido(dto.getTipoCliente(), new String[] { EMPRESA_PRIVADA, AUTONOMO, HOGAR });
 		} else if ("ICO MRR Empresas y Emprendedores".equals(lineaSeleccionada)
 				|| "ICO MRR Empresas y Emprendedores – Sector turístico".equals(lineaSeleccionada)) {
-			return esTipoClienteValido(dto.getTipoCliente(), new String[] { "Empresa privada", "Autónomo" });
+			return esTipoClienteValido(dto.getTipoCliente(), new String[] { EMPRESA_PRIVADA, AUTONOMO });
 		} else if ("ICO MRR Empresas y Emprendedores – PERTE Nueva Economía de la Lengua".equals(lineaSeleccionada)) {
-			return esTipoClienteValido(dto.getTipoCliente(), new String[] { "Universidad española" });
+			return esTipoClienteValido(dto.getTipoCliente(), new String[] { UNIVERSIDAD_ESPANOLA });
 		} else if ("ICO MRR Audiovisual".equals(lineaSeleccionada)
 				|| "ICO MRR Audiovisual – PERTE Nueva Economía de la Lengua".equals(lineaSeleccionada)) {
 			return esTipoClienteValido(dto.getTipoCliente(),
-					new String[] { "Empresa privada", "Empresa pública", "Autónomo" });
+					new String[] { EMPRESA_PRIVADA, EMPRESA_PUBLICA, AUTONOMO });
 		} else if ("ICO MRR Promoción de vivienda social".equals(lineaSeleccionada)) {
-			return esTipoClienteValido(dto.getTipoCliente(),
-					new String[] { "Empresa privada", "Empresa pública" });
+			return esTipoClienteValido(dto.getTipoCliente(), new String[] { EMPRESA_PRIVADA, EMPRESA_PUBLICA });
 		}
 
-		// En caso de no cumplir con ninguna condición específica, se considera válido
-		return true;
+		return false;
 	}
 
 	private boolean esTipoClienteValido(String tipoCliente, String[] tiposValidos) {
@@ -47,6 +80,7 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 				return true;
 			}
 		}
+				
 		return false;
 	}
 
