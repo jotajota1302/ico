@@ -17,7 +17,7 @@ import com.ntt.es.validation.validator.IntervencionAnexoVIValidator;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidarIntervencionAnexoVI {
 
-    String message() default "La IntervencionAnexoVI no es válida.";
+    String message() default "el campo de IntervencionAnexoVI no es válido.";
 
     Class<?>[] groups() default {};
 

@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,16 +34,22 @@ public class DatosGeneralesController {
 	public ResponseEntity<String> crearSolicitud(@Valid @RequestBody SolicitudFinanciacionDTO solicitud,
 			BindingResult bindingResult) {
 		
+		log.debug("creando solicitud despues de las validaciones");
+		
+		List<String> errores = new ArrayList<>();
+				
 		if (bindingResult.hasErrors()) {
-			List<String> errores = new ArrayList<>();
-			for (FieldError error : bindingResult.getFieldErrors()) {
-				String mensajeError = error.getField() + ": " + error.getDefaultMessage();
-				errores.add(mensajeError);
-			}
+						
+			log.debug("existen errores de validacion : " + bindingResult.getErrorCount());
+			
+			bindingResult.getAllErrors().forEach(e->{
+				errores.add(e.getDefaultMessage());
+			});
+			
 			return new ResponseEntity<>(errores.toString(), HttpStatus.BAD_REQUEST);
 		}
 
-		log.debug("creando solicitud despues de las validaciones");
+		
 		
 		service.guardarSolicitud(solicitud);
 
