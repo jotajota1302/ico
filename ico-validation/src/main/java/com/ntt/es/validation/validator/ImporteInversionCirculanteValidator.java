@@ -24,7 +24,7 @@ public class ImporteInversionCirculanteValidator
 	@Override
 	public boolean isValid(SolicitudFinanciacionDTO dto, ConstraintValidatorContext context) {
 
-		log.info("validando el Importe de Inversion Circulante");
+		log.debug("validando el Importe de Inversion Circulante");
 		
 		List<String> lineasObligatorias = Arrays.asList("Línea ICO MRR Empresa y Emprendedores",
 				"Línea ICO MRR Empresas y Emprendedores – Sector Turístico");

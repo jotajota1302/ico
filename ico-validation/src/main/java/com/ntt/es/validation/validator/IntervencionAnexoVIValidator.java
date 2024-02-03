@@ -23,6 +23,7 @@ public class IntervencionAnexoVIValidator
 
 	@Override
 	public boolean isValid(SolicitudFinanciacionDTO dto, ConstraintValidatorContext context) {
+		
 	    log.debug("Validando la intervención del AnexoVI");
 
 	    String linea = dto.getLinea();
