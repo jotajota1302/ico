@@ -10,11 +10,14 @@ import javax.validation.Payload;
 
 import com.ntt.es.validation.validator.CategoriaDigitalizacionValidator;
 
-@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
+@Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CategoriaDigitalizacionValidator.class)
 public @interface ValidarCategoriaDigitalizacion {
-    String message() default "Error de validación de categoría de digitalización";
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
+	
+	String message() default "Error de validación de categoría de digitalización";
+
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
 }

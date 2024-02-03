@@ -33,22 +33,22 @@ public class CodigoCampoIntervencionAnexoVIIValidator
 
 		// Si la línea está deshabilitada, el campo debe ser nulo
 		if (lineasDeshabilitadas.contains(dto.getLinea())) {
-			dto.setCodigoIntervencionAnexoVII(null);
+			dto.setCodigoCampoIntervencionAnexoVII(null);
 			return true;
 		}
 
 		// Si la línea es ICO MRR Empresas y Emprendedores – PERTE NEL
 		if ("ICO MRR Empresas y Emprendedores – PERTE NEL".equals(dto.getLinea())) {
 			// Verifica que el código de intervención sea uno de los permitidos
-			return "009bis".equals(dto.getCodigoIntervencionAnexoVII())
-					|| "011".equals(dto.getCodigoIntervencionAnexoVII());
+			return "009bis".equals(dto.getCodigoCampoIntervencionAnexoVII())
+					|| "011".equals(dto.getCodigoCampoIntervencionAnexoVII());
 		}
 
 		// Si la línea es ICO MRR Audiovisual o ICO MRR Audiovisual – PERTE NEL
 		if ("ICO MRR Audiovisual".equals(dto.getLinea()) || "ICO MRR Audiovisual – PERTE NEL".equals(dto.getLinea())) {
 			// Verifica que el código de intervención sea uno de los permitidos
-			return "010ter".equals(dto.getCodigoIntervencionAnexoVII())
-					|| "021bis".equals(dto.getCodigoIntervencionAnexoVII());
+			return "010ter".equals(dto.getCodigoCampoIntervencionAnexoVII())
+					|| "021bis".equals(dto.getCodigoCampoIntervencionAnexoVII());
 		}
 
 		// Si la línea no coincide con ninguna condición anterior, la validación pasa

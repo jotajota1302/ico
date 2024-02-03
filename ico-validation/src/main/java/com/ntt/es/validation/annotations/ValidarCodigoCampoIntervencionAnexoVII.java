@@ -9,10 +9,10 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.ntt.es.validation.validator.IntervencionAnexoVIValidator;
+import com.ntt.es.validation.validator.CodigoCampoIntervencionAnexoVIIValidator;
 
 @Documented
-@Constraint(validatedBy = IntervencionAnexoVIValidator.class)
+@Constraint(validatedBy = CodigoCampoIntervencionAnexoVIIValidator.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidarCodigoCampoIntervencionAnexoVII {

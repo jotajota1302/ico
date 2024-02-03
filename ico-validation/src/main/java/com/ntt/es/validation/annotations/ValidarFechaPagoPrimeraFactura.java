@@ -18,7 +18,8 @@ import com.ntt.es.validation.validator.FechaPagoPrimeraFacturaValidator;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidarFechaPagoPrimeraFactura {
-    String message() default "Error en la validación de la fecha de pago de la primera factura.";
+   
+	String message() default "Error en la validación de la fecha de pago de la primera factura.";
 
     Class<?>[] groups() default {};
 
