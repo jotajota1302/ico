@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ntt.es.model.DatosTitularesDto;
 import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.service.SolicitudService;
+import com.ntt.es.validation.groups.TipoCliente;
 
 @RestController
 @RequestMapping("/solicitud")
@@ -56,14 +58,14 @@ public class SolicitudController {
 	}
 
 	@PostMapping("/titulares")
-	public ResponseEntity<String> guardarTitulares(@Valid @RequestBody DatosTitularesDto titulares, BindingResult bindingResult) {
+	public ResponseEntity<String> guardarTitulares(@Validated(TipoCliente.All.class) @RequestBody DatosTitularesDto titulares, BindingResult bindingResult) {
 
 		log.debug("actualizando titulares");
 		
 		if(titulares.getIdSolicitud()==null) {
 			return new ResponseEntity<>("el id de la solicitud es obligatorio", HttpStatus.BAD_REQUEST);
 		}
-
+		
 		List<String> errores = new ArrayList<>();
 
 		if (bindingResult.hasErrors()) {
@@ -81,6 +83,9 @@ public class SolicitudController {
 
 		return ResponseEntity.ok("Titulares guardados exitosamente.");
 	}
+	
+	
+
 
 	@SuppressWarnings("unused")
 	private void validate() {
