@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ntt.es.model.SolicitudFinanciacionDto;
+import com.ntt.es.model.dto.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarCodigoPostal;
 
 public class CodigoPostalValidator implements ConstraintValidator<ValidarCodigoPostal, SolicitudFinanciacionDto> {

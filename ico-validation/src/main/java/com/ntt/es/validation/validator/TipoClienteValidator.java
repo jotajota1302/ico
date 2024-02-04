@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ntt.es.config.Constantes;
-import com.ntt.es.model.DatosTitularesDto;
+import com.ntt.es.model.dto.DatosTitularesDto;
 import com.ntt.es.validation.annotations.ValidarTipoCliente;
 
 public class TipoClienteValidator implements ConstraintValidator<ValidarTipoCliente, DatosTitularesDto> {

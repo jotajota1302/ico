@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ntt.es.model.DatosTitularesDto;
+import com.ntt.es.model.dto.DatosTitularesDto;
 
 public class EmpresaValidator {
 

@@ -1,4 +1,4 @@
-package com.ntt.es.xmlbean;
+package com.ntt.es.model.xmlbean;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

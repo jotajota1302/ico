@@ -1,4 +1,4 @@
-package com.ntt.es.model;
+package com.ntt.es.model.dto;
 
 import java.time.LocalDate;
 

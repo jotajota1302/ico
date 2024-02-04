@@ -1,4 +1,4 @@
-package com.ntt.es.xmlbean;
+package com.ntt.es.model.xmlbean;
 
 import java.math.BigDecimal;
 import java.util.Date;
