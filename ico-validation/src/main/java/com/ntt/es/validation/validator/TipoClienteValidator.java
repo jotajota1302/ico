@@ -20,6 +20,9 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 	
 	@Autowired
 	UniversidadValidator universidadValidator;
+	
+	@Autowired
+	AutonomoValidator autonomoValidator;
 
 	@Override
 	public boolean isValid(DatosTitularesDto dto, ConstraintValidatorContext context) {
@@ -42,6 +45,11 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 		}
 		if (Constantes.UNIVERSIDAD_ESPANOLA.equals(dto.getTipoCliente())) {
 			if (!universidadValidator.isValid(dto, context)) {
+				isValid = false;
+			}
+		}
+		if (Constantes.AUTONOMO.equals(dto.getTipoCliente())) {
+			if (!autonomoValidator.isValid(dto, context)) {
 				isValid = false;
 			}
 		}
