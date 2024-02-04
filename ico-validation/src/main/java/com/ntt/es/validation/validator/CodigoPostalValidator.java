@@ -1,4 +1,4 @@
- package com.ntt.es.validation.validator;
+package com.ntt.es.validation.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -6,59 +6,43 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ntt.es.config.Constantes;
 import com.ntt.es.model.dto.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarCodigoPostal;
+import com.ntt.es.validation.utils.ValidationUtils;
 
 public class CodigoPostalValidator implements ConstraintValidator<ValidarCodigoPostal, SolicitudFinanciacionDto> {
 
 	private static Logger log = LoggerFactory.getLogger(CodigoPostalValidator.class);
-	
-    @Override
-    public void initialize(ValidarCodigoPostal constraintAnnotation) {
-    }
 
-    @Override
-    public boolean isValid(SolicitudFinanciacionDto dto, ConstraintValidatorContext context) {
-      
-    	log.debug("validando el codigo postal del pais destino de la inversion");
+	@Override
+	public void initialize(ValidarCodigoPostal constraintAnnotation) {
+	}
 
-        if ("España".equals(dto.getPaisDestinoInversion())) {
-            // Si el país es España, el código postal debe ser obligatorio y válido
-            if (dto.getCodigoPostalInversion().equals("NA")) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate("El código postal es obligatorio para España.")
-                        .addPropertyNode("codigoPostalInversion")
-                        .addConstraintViolation();
-                return false;
-            }
+	@Override
+	public boolean isValid(SolicitudFinanciacionDto dto, ConstraintValidatorContext context) {
 
-            // Validar que sea un código postal existente (aquí deberías agregar tu lógica específica)
-            if (!esCodigoPostalValido(dto.getCodigoPostalInversion())) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate("El código postal no es válido.")
-                        .addPropertyNode("codigoPostalInversion")
-                        .addConstraintViolation();
-                return false;
-            }
+		log.debug("validando el codigo postal del pais destino de la inversion");
 
-            // Restricción adicional: 5 dígitos obligatorios
-            if (dto.getCodigoPostalInversion().length() != 5) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate("El código postal debe tener 5 dígitos.")
-                        .addPropertyNode("codigoPostalInversion")
-                        .addConstraintViolation();
-                return false;
-            }
-        } else {
-            // Si el país no es España, el código postal se establece por defecto como "NA"
-            dto.setCodigoPostalInversion("NA");
-        }
+		boolean isValid = true;
 
-        return true;
-    }
+		if (Constantes.ESPANA.equals(dto.getPaisDestinoInversion())) {
 
-    private boolean esCodigoPostalValido(String codigoPostal) {
-    	 // Implementa la lógica para determinar si el código postal es válido
-        return codigoPostal.length() == 5;
-    }
+			isValid = ValidationUtils.isNotNullOrEmpty(dto.getCodigoPostalInversion(),
+					"El código postal no puede estar vacio.", "codigoPostalInversion", context);
+
+			// Si el país es España, el código postal debe ser obligatorio y válido
+			isValid = ValidationUtils.isValidLength(dto.getCodigoPostalInversion(), 5,
+					"El código postal debe tener una longitud de 5 caracteres.", "codigoPostalInversion", context);
+
+			isValid = ValidationUtils.isValidDigits(dto.getCodigoPostalInversion(),
+					"El código postal solo puede contenter numeros.", "codigoPostalInversion", context);
+		}
+		else {
+			// Si el país no es España, el código postal se establece por defecto como "NA"
+			dto.setCodigoPostalInversion("NA");			
+		}
+		return isValid;
+	}
+
 }

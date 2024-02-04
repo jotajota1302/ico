@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import javax.validation.ConstraintValidatorContext;
 
 public class ValidationUtils {
-	
+
 	public static boolean isValidNifFormat(String value, String errorMessage, String propertyName,
 			ConstraintValidatorContext context) {
 		if (value == null || value.length() != 9 || !value.matches("[A-Za-z0-9]+")) {
@@ -39,6 +39,17 @@ public class ValidationUtils {
 		}
 		return true;
 	}
+	
+	public static boolean isValidDigits(String value, String errorMessage, String propertyName,
+			ConstraintValidatorContext context) {
+		if (value == null || value.isEmpty() || !value.matches("[0-9]+")) {
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(errorMessage).addPropertyNode(propertyName)
+					.addConstraintViolation();
+			return false;
+		}
+		return true;
+	}
 
 	public static boolean isValidDate(String value, String errorMessage, String propertyName,
 			ConstraintValidatorContext context) {
@@ -56,6 +67,32 @@ public class ValidationUtils {
 					.addConstraintViolation();
 			return false;
 		}
+		return true;
+	}
+
+	public static boolean isValidLength(String value,int length, String errorMessage, String propertyName,
+			ConstraintValidatorContext context) {
+
+		if ((value.length() != length)) {
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(errorMessage).addPropertyNode(propertyName)
+					.addConstraintViolation();
+			return false;
+		}
+
+		return true;
+	}
+	
+	public static boolean isNotNullOrEmpty(String value,String errorMessage, String propertyName,
+			ConstraintValidatorContext context) {
+
+		if (value==null||value.isEmpty()) {
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(errorMessage).addPropertyNode(propertyName)
+					.addConstraintViolation();
+			return false;
+		}
+
 		return true;
 	}
 
