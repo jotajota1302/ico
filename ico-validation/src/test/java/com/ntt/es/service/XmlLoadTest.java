@@ -1,4 +1,4 @@
-package com.ntt.es.test;
+package com.ntt.es.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -13,11 +13,6 @@ public class DatosAdicionalesDto {
 	private DatosDomicilioSocialDto domicilioSocial;
 	
 	private DatosFinancierosDto datosFinancieros;
-	
-	
-
-    
-
-	
+		
 
 }
