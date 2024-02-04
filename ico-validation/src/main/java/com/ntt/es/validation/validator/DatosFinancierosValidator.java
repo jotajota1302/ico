@@ -118,16 +118,16 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 
 		else if (TipoClienteValidator.esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.AUTONOMO })
 				&& !dto.getPerteneceGrupo()) {
-			
+
 			dto.setCuentasConsolidadas(false);
 			dto.setDatosEmpresasGrupo(null);
 			dto.setDatosEmpresasNoGrupo(null);
-			
+
 			for (int i = 0; i < dto.getDatosFinancierosAutonomo().size(); i++) {
 				DatosFinancierosAutonomoDto autonomoDto = dto.getDatosFinancierosAutonomo().get(i);
 
-				Set<ConstraintViolation<DatosFinancierosAutonomoDto>> violations = Validation.buildDefaultValidatorFactory()
-						.getValidator().validate(autonomoDto);
+				Set<ConstraintViolation<DatosFinancierosAutonomoDto>> violations = Validation
+						.buildDefaultValidatorFactory().getValidator().validate(autonomoDto);
 
 				if (!violations.isEmpty()) {
 					isValid = false;
@@ -142,6 +142,19 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 			}
 
 		}
+
+		// validacion pagina web
+		isValid = ValidationUtils.isValidString(dto.getPaginaWeb(),
+				"La página web es obligatoria. En caso de no tener página web, utilizar 'NA'.", "paginaWeb", context);
+
+		// validacion persona contacto web
+		isValid = ValidationUtils.isValidStringRegex(dto.getCorreoPersonaContacto(),
+				"El correo electrónico de la persona de contacto es obligatorio. En caso de no tener correo electrónico, utilizar 'NA'.",
+				"correoPersonaContacto", context, "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b|NA");
+
+		// validacion pagina web
+		isValid = ValidationUtils.isNotNullOrEmpty(dto.getCodigoCNAECliente(), "El código CNAE cliente es obligatorio.",
+				"codigoCNAECliente", context);
 
 		return isValid;
 
