@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<solicitudes>
+	<solicitud>
+		<!-- inicio bloque Generales -->
+	
+		<codigo-entidad>0904</codigo-entidad>	
+		<codigo-linea>5840</codigo-linea>				<!--Identificador - mrr_facilidad--> 
+		<empresa-digital>S</empresa-digital>					<!--S/N-->
+		<id-cat-digitalizacion>1</id-cat-digitalizacion>		<!--Identificador - mrr_categorias_digitalizacion--> 
+		<modalidad>1</modalidad>								<!--Identificador - mrr_modalidad-->
+		<importe-total-financiacion-cliente>100</importe-total-financiacion-cliente>
+		<importe-solicitado-financiacion-ico>100</importe-solicitado-financiacion-ico>
+		<importe-inversion-activos-fijos>100</importe-inversion-activos-fijos>
+		<importe-inversion-circulante>100</importe-inversion-circulante>
+		<importe-total-inversion>100</importe-total-inversion>
+		<pais-destino-inversion>00724</pais-destino-inversion> (Identificador - pais)
+		<cp-inversion>23233</cp-inversion>
+		<fecha-pago-primera-factura>2023-06-02</fecha-pago-primera-factura>
+		<cnae-inversion>7734</cnae-inversion>
+		<interes-esp>1</interes-esp>							(Identificador - mrr_interes_esp)
+		<justificacion-interes-esp>JUSTIFCACION</justificacion-interes-esp>
+		<id-anexo-vi>3</id-anexo-vi>							(Identificador - mrr_anexo_vi)
+		<id-anexo-vii>4</id-anexo-vii>							(Identificador - mrr_anexo_vii)
+		<!-- fin bloque Generales -->
+		
+		<!-- inicio Adicionales - Datos domicilio social -->
+		<id-tipo-via>AV</id-tipo-via>							(Identificador - tipovia)
+		<nombre-via>NOMVIA</nombre-via>
+		<numero-via>10</numero-via>
+		<poblacion>POBL</poblacion>
+		<cp-social>23233</cp-social>
+		<!-- fin Adicionales - Datos domicilio social -->
+		
+		<!-- inicio Adicionales - Otros datos adicionales -->
+		<pagina-web>PAGWEB.COM</pagina-web>
+		<correo-electronico>CORREO@GMAIL1.COM</correo-electronico>
+		<cnae-cliente>7734</cnae-cliente>
+		<!-- fin Adicionales - Otros datos adicionales -->
+		<!-- se habilitaran tantos bloques de datos como empresas titulares de la financiación se hayan indicado -->
+		
+		
+		<titulares>
+			<titular>
+				<tipo-cliente>1</tipo-cliente>						(Identificador - mrr_cliente_tipo) <!-- ejemplo tipo cliente Empresa privada -->
+				<nif-titular>W3135592H</nif-titular>
+				<razon-social-titular>AAAAA</razon-social-titular>
+				<poder-adjudicador>S</poder-adjudicador>                  S/N
+				<NIF-contratista>B22222222</NIF-contratista>
+				<NIF-subcontratista>B33333333</NIF-subcontratista>
+				<titulares-reales>
+					<titular-real>
+						<dni-titular-real>45569743G</dni-titular-real>
+						<primer-apellido-titular-real>PRIMER APELLIDO TITULAR REAL UNO</primer-apellido-titular-real>
+					</titular-real>
+					<titular-real>
+						<dni-titular-real>43128854J</dni-titular-real>
+						<primer-apellido-titular-real>PRIMER APELLIDO TITULAR REAL DOS</primer-apellido-titular-real>
+					</titular-real>
+				</titulares-reales>
+			</titular>
+				
+			<!-- empresa privada 2-->
+			<titular>
+				<tipo-cliente>1</tipo-cliente>						(Identificador - mrr_cliente_tipo) <!-- ejemplo tipo cliente Empresa privada -->
+				<nif-titular>V84996636</nif-titular>
+				<razon-social-titular>AAAAA</razon-social-titular>
+				<poder-adjudicador>S</poder-adjudicador>                  S/N
+				<NIF-contratista>B22222222</NIF-contratista>
+				<NIF-subcontratista>B33333333</NIF-subcontratista>
+				<titulares-reales>
+					<titular-real>
+						<dni-titular-real>41735815S</dni-titular-real>
+						<primer-apellido-titular-real>PRIMER APELLIDO TITULAR REAL UNO</primer-apellido-titular-real>
+					</titular-real>
+					<titular-real>
+						<dni-titular-real>84885436A</dni-titular-real>
+						<primer-apellido-titular-real>PRIMER APELLIDO TITULAR REAL DOS</primer-apellido-titular-real>
+					</titular-real>
+				</titulares-reales>
+				
+			</titular>
+		</titulares>
+		<!-- fin bloque Titulares -->
+		
+		
+		<!-- datos financieros para el titular tipo cliente Empresa privada-->
+		<datos-economicos>
+			<grupo>S</grupo>                                             S/N
+			<consolidado>S</consolidado>                                 S/N
+			<nif-matriz>B11111111</nif-matriz>
+			<pais-matriz>23233</pais-matriz>
+			
+			<empleados-grupo>2</empleados-grupo>
+			<fondos-propios-grupo>10</fondos-propios-grupo>
+			<facturacion-grupo>20</facturacion-grupo>
+			<activo-total-grupo>30</activo-total-grupo>
+			<fecha-constitucion-matriz>2020-02-10</fecha-constitucion-matriz>
+		</datos-economicos>
+		
+		<!-- datos financieros para el titular tipo cliente autonomo-->
+		<datos-economicos-autonomo>
+			<dato-economico-autonomo>
+				<!-- datos financieros para el titular tipo cliente Autonomo-->
+				<nif-autonomo>12345678A</nif-autonomo>
+				<empleados-total-cierre-autonomo>10</empleados-total-cierre-autonomo>
+				<facturación-periodo-anterior-autonomo>30</facturación-periodo-anterior-autonomo>
+				<fecha-alta-iae>2024-01-01</fecha-alta-iae>
+			</dato-economico-autonomo>
+			<dato-economico-autonomo>
+				<!-- datos financieros para el titular tipo cliente Autonomo-->
+				<nif-autonomo>73683296J</nif-autonomo>
+				<empleados-total-cierre-autonomo>10</empleados-total-cierre-autonomo>
+				<facturación-periodo-anterior-autonomo>30</facturación-periodo-anterior-autonomo>
+				<fecha-alta-iae>2023-01-01</fecha-alta-iae>
+			</dato-economico-autonomo>
+		</datos-economicos-autonomo>
+		
+	</solicitud>
+</solicitudes>
