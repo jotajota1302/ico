@@ -9,11 +9,13 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ntt.es.config.Constantes;
 import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarImporteInversionCirculante;
 
 public class ImporteInversionCirculanteValidator
 		implements ConstraintValidator<ValidarImporteInversionCirculante, SolicitudFinanciacionDto> {
+
 
 	private static Logger log = LoggerFactory.getLogger(ImporteInversionCirculanteValidator.class);
 	
@@ -26,8 +28,8 @@ public class ImporteInversionCirculanteValidator
 
 		log.debug("validando el Importe de Inversion Circulante");
 		
-		List<String> lineasObligatorias = Arrays.asList("Línea ICO MRR Empresa y Emprendedores",
-				"Línea ICO MRR Empresas y Emprendedores – Sector Turístico");
+		List<String> lineasObligatorias = Arrays.asList(Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES,
+				Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_SECTOR_TURISTICO);
 
 		// es obligatorio para estas lineas
 		if (lineasObligatorias.contains(dto.getLinea())) {
@@ -40,11 +42,11 @@ public class ImporteInversionCirculanteValidator
 			}
 		}
 
-		List<String> lineasConValorCero = Arrays.asList("ICO MRR Verde", "ICO MRR Audiovisual",
-				"ICO MRR Promoción de vivienda social", "ICO MRR Empresa y Emprendedores – PERTE NEL");
+		List<String> lineasConValorCero = Arrays.asList(Constantes.LINEA_ICO_MRR_VERDE,Constantes.LINEA_ICO_MRR_AUDIOVISUAL,
+				Constantes.LINEA_ICO_MRR_PROMOCION_DE_VIVIENDA_SOCIAL,Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_PERTE_NEL);
 
 		// lineas donde el campo tiene que ser 0
-		boolean inhabilitarCampo = lineasConValorCero.contains(dto.getLinea()) || "Leasing".equals(dto.getModalidad());
+		boolean inhabilitarCampo = lineasConValorCero.contains(dto.getLinea()) || Constantes.LEASING.equals(dto.getModalidad());
 
 		if (inhabilitarCampo) {
 			// Inhabilitar el campo y establecer el valor predeterminado

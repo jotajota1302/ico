@@ -20,6 +20,12 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 	
 	@Autowired
 	UniversidadValidator universidadValidator;
+	
+	@Autowired
+	PersonaValidator autonomoValidator;
+	
+	@Autowired
+	HogarValidator hogarValidator;
 
 	@Override
 	public boolean isValid(DatosTitularesDto dto, ConstraintValidatorContext context) {
@@ -45,24 +51,32 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 				isValid = false;
 			}
 		}
+		if (Constantes.AUTONOMO.equals(dto.getTipoCliente())) {
+			if (!autonomoValidator.isValid(dto, context)) {
+				isValid = false;
+			}
+		}
+		if (Constantes.HOGAR.equals(dto.getTipoCliente())) {
+			if (!hogarValidator.isValid(dto, context)) {
+				isValid = false;
+			}
+		}
 
 		return isValid;
 	}
 
 	private boolean validaLineaTipoCliente(DatosTitularesDto dto, String lineaSeleccionada) {
 
-		// Validar el tipo de cliente según la línea seleccionada
-
 		if (Constantes.LINEA_ICO_MRR_VERDE.equals(lineaSeleccionada)
-				|| Constantes.LINEA_ICO_MRR_VERDE_PERTE_ENERGIA_RENOVABLE_HIDROGENO_Y_ALMACENAMIENTO.equals(lineaSeleccionada)) {
+				|| Constantes.LINEA_ICO_MRR_VERDE_PERTE_ERHA.equals(lineaSeleccionada)) {
 			return esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.EMPRESA_PRIVADA, Constantes.AUTONOMO, Constantes.HOGAR });
 		} else if (Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES.equals(lineaSeleccionada)
 				|| Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_SECTOR_TURISTICO.equals(lineaSeleccionada)) {
 			return esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.EMPRESA_PRIVADA, Constantes.AUTONOMO });
-		} else if (Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_PERTE_NUEVA_ECONOMIA_DE_LA_LENGUA.equals(lineaSeleccionada)) {
+		} else if (Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_PERTE_NEL.equals(lineaSeleccionada)) {
 			return esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.UNIVERSIDAD_ESPANOLA });
 		} else if (Constantes.LINEA_ICO_MRR_AUDIOVISUAL.equals(lineaSeleccionada)
-				|| Constantes.LINEA_ICO_MRR_AUDIOVISUAL_PERTE_NUEVA_ECONOMIA_DE_LA_LENGUA.equals(lineaSeleccionada)) {
+				|| Constantes.LINEA_ICO_MRR_AUDIOVISUAL_PERTE_NEL.equals(lineaSeleccionada)) {
 			return esTipoClienteValido(dto.getTipoCliente(),
 					new String[] { Constantes.EMPRESA_PRIVADA, Constantes.EMPRESA_PUBLICA, Constantes.AUTONOMO });
 		} else if (Constantes.LINEA_ICO_MRR_PROMOCION_DE_VIVIENDA_SOCIAL.equals(lineaSeleccionada)) {

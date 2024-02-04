@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import com.ntt.es.validation.annotations.ValidarTipoCliente;
 
@@ -13,54 +12,38 @@ import lombok.Data;
 @Data
 @ValidarTipoCliente
 public class DatosTitularesDto {
-	
+
 	@NotNull
 	private Integer idSolicitud;
-	
+
 	@NotBlank
 	private String linea;
-	
+
 	@NotBlank(message = "El campo tipo cliente es obligatorio.")
 	private String tipoCliente;
-	
-    private String nifTitular;
 
-    private String razonSocialTitular;
-   
-    private Boolean esPoderAdjudicador;
-    
-    private String nifContratistaTitular;
-   
-    private String nifSubcontratistaTitular;
+	private String nifTitular;
 
-//    @Pattern(regexp = "[a-zA-Z0-9]+", message = "El DNI/NIE titular real solo puede contener letras y dígitos")
-    private String dniNieTitularReal;
+	private String razonSocialTitular;
 
-//    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Primer apellido titular real solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ")
-    private String primerApellidoTitularReal;
-	
-//	@NotBlank(message = "El campo 'DNI no puede estar vacío'")
-//	@Pattern(regexp = "^[0-9A-Za-z]{9}$", message = "El NIF/NIE titular no es válido")
+	private Boolean esPoderAdjudicador;
+
+	private String nifContratistaTitular;
+
+	private String nifSubcontratistaTitular;
+
+	private String dniNieTitularReal;
+
+	private String primerApellidoTitularReal;
+
 	private String dniNieTitular;
-	
-//    @NotBlank(message = "El campo 'Nombre titular' no puede estar vacio")
-//    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Nombre titular solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ")
-    private String nombreTitular;
-    
-//    @NotNull(message = "El campo 'Fecha de nacimiento' no puede ser nulo")
-    private LocalDate fechaNacimiento;
 
-//    @NotNull(message = "El campo 'Primer apellido titular' no puede ser nulo")
-//    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Primer apellido titular solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ")
-    private String primerApellidoTitular;
+	private String nombreTitular;
 
-//    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Segundo apellido solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ")
-    private String segundoApellidoTitular;
+	private String primerApellidoTitular;
 
+	private String segundoApellidoTitular;
 
-
-    
-
-	
+	private LocalDate fechaNacimiento;
 
 }
