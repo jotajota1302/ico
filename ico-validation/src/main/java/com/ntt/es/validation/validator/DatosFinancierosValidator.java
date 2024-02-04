@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ntt.es.config.Constantes;
-import com.ntt.es.model.dto.DatosEmpresaGrupoDto;
-import com.ntt.es.model.dto.DatosEmpresaNoGrupoDto;
+import com.ntt.es.model.dto.DatosFinancierosEmpresaGrupoDto;
+import com.ntt.es.model.dto.DatosFinancierosNoGrupoDto;
 import com.ntt.es.model.dto.DatosFinancierosAutonomoDto;
 import com.ntt.es.model.dto.DatosFinancierosDto;
 import com.ntt.es.validation.annotations.ValidarDatosFinancieros;
@@ -71,14 +71,14 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 					"El país del domicilio de la Matriz Grupo es obligatorio.", "paisDomicilioMatrizGrupo", context);
 
 			for (int i = 0; i < dto.getDatosEmpresasGrupo().size(); i++) {
-				DatosEmpresaGrupoDto empresaDto = dto.getDatosEmpresasGrupo().get(i);
+				DatosFinancierosEmpresaGrupoDto empresaDto = dto.getDatosEmpresasGrupo().get(i);
 
-				Set<ConstraintViolation<DatosEmpresaGrupoDto>> violations = Validation.buildDefaultValidatorFactory()
+				Set<ConstraintViolation<DatosFinancierosEmpresaGrupoDto>> violations = Validation.buildDefaultValidatorFactory()
 						.getValidator().validate(empresaDto);
 
 				if (!violations.isEmpty()) {
 					isValid = false;
-					for (ConstraintViolation<DatosEmpresaGrupoDto> violation : violations) {
+					for (ConstraintViolation<DatosFinancierosEmpresaGrupoDto> violation : violations) {
 						context.disableDefaultConstraintViolation();
 						context.buildConstraintViolationWithTemplate(violation.getMessage())
 								.addPropertyNode(
@@ -97,14 +97,14 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 			dto.setDatosEmpresasGrupo(null);
 
 			for (int i = 0; i < dto.getDatosEmpresasNoGrupo().size(); i++) {
-				DatosEmpresaNoGrupoDto empresaDto = dto.getDatosEmpresasNoGrupo().get(i);
+				DatosFinancierosNoGrupoDto empresaDto = dto.getDatosEmpresasNoGrupo().get(i);
 
-				Set<ConstraintViolation<DatosEmpresaNoGrupoDto>> violations = Validation.buildDefaultValidatorFactory()
+				Set<ConstraintViolation<DatosFinancierosNoGrupoDto>> violations = Validation.buildDefaultValidatorFactory()
 						.getValidator().validate(empresaDto);
 
 				if (!violations.isEmpty()) {
 					isValid = false;
-					for (ConstraintViolation<DatosEmpresaNoGrupoDto> violation : violations) {
+					for (ConstraintViolation<DatosFinancierosNoGrupoDto> violation : violations) {
 						context.disableDefaultConstraintViolation();
 						context.buildConstraintViolationWithTemplate(violation.getMessage())
 								.addPropertyNode(

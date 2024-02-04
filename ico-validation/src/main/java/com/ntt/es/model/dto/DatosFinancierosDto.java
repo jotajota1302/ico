@@ -40,9 +40,9 @@ public class DatosFinancierosDto {
 
     private String fechaConstitucionEmpresaMatriz;	
    
-    private List<DatosEmpresaGrupoDto> datosEmpresasGrupo;
+    private List<DatosFinancierosEmpresaGrupoDto> datosEmpresasGrupo;
     
-    private List<DatosEmpresaNoGrupoDto> datosEmpresasNoGrupo;
+    private List<DatosFinancierosNoGrupoDto> datosEmpresasNoGrupo;
     
     private List<DatosFinancierosAutonomoDto> datosFinancierosAutonomo;    
 

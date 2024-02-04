@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class DatosEmpresaNoGrupoDto {
+public class DatosFinancierosNoGrupoDto {
 	
 	 @NotBlank(message = "El NIF de la empresa del grupo es obligatorio.")
 	    @Size(min = 9, max = 9, message = "El NIF debe contener exactamente 9 caracteres alfanuméricos.")
