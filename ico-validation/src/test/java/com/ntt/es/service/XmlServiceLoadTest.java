@@ -9,7 +9,7 @@ import com.ntt.es.model.xmlbean.Solicitudes;
 import com.ntt.es.service.XmlService;
 
 @SpringBootTest
-class XmlLoadTest {
+class XmlServiceLoadTest {
 
 	@Autowired
 	XmlService service;
