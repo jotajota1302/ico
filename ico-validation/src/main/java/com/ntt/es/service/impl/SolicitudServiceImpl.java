@@ -61,6 +61,8 @@ public class SolicitudServiceImpl implements SolicitudService {
 
 	public List<String> validate() {
 
+		//convertir a DTO		
+		
 		List<String> errores = new ArrayList<>();
 		
 		// Obtén el validador
