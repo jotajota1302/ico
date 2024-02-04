@@ -33,13 +33,7 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 		boolean isValid = true;
 
 		// Verificar el tipo de línea seleccionada
-		isValid = validaLineaTipoCliente(dto, dto.getLinea());
-
-		if (!isValid) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("La linea no coincide con el tipo de cliente.")
-					.addPropertyNode("razonSocialTitular").addConstraintViolation();
-		}
+		isValid = validaLineaTipoCliente(dto, dto.getLinea(), context);		
 
 		if (Constantes.EMPRESA_PRIVADA.equals(dto.getTipoCliente())) {
 			if (!empresaPrivadaValidator.isValid(dto, context)) {
@@ -65,25 +59,33 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 		return isValid;
 	}
 
-	private boolean validaLineaTipoCliente(DatosTitularesDto dto, String lineaSeleccionada) {
+	private boolean validaLineaTipoCliente(DatosTitularesDto dto, String lineaSeleccionada,  ConstraintValidatorContext context) {
 
+		boolean isValid = true;
+		
 		if (Constantes.LINEA_ICO_MRR_VERDE.equals(lineaSeleccionada)
 				|| Constantes.LINEA_ICO_MRR_VERDE_PERTE_ERHA.equals(lineaSeleccionada)) {
-			return esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.EMPRESA_PRIVADA, Constantes.AUTONOMO, Constantes.HOGAR });
+			isValid=esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.EMPRESA_PRIVADA, Constantes.AUTONOMO, Constantes.HOGAR });
 		} else if (Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES.equals(lineaSeleccionada)
 				|| Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_SECTOR_TURISTICO.equals(lineaSeleccionada)) {
-			return esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.EMPRESA_PRIVADA, Constantes.AUTONOMO });
+			isValid=esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.EMPRESA_PRIVADA, Constantes.AUTONOMO });
 		} else if (Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_PERTE_NEL.equals(lineaSeleccionada)) {
-			return esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.UNIVERSIDAD_ESPANOLA });
+			isValid=esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.UNIVERSIDAD_ESPANOLA });
 		} else if (Constantes.LINEA_ICO_MRR_AUDIOVISUAL.equals(lineaSeleccionada)
 				|| Constantes.LINEA_ICO_MRR_AUDIOVISUAL_PERTE_NEL.equals(lineaSeleccionada)) {
-			return esTipoClienteValido(dto.getTipoCliente(),
+			isValid=esTipoClienteValido(dto.getTipoCliente(),
 					new String[] { Constantes.EMPRESA_PRIVADA, Constantes.EMPRESA_PUBLICA, Constantes.AUTONOMO });
 		} else if (Constantes.LINEA_ICO_MRR_PROMOCION_DE_VIVIENDA_SOCIAL.equals(lineaSeleccionada)) {
-			return esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.EMPRESA_PRIVADA, Constantes.EMPRESA_PUBLICA });
+			isValid=esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.EMPRESA_PRIVADA, Constantes.EMPRESA_PUBLICA });
+		}		
+
+		if (!isValid) {
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate("La linea no coincide con el tipo de cliente.")
+					.addPropertyNode("razonSocialTitular").addConstraintViolation();
 		}
 
-		return false;
+		return isValid;
 	}
 
 	private boolean esTipoClienteValido(String tipoCliente, String[] tiposValidos) {
@@ -92,7 +94,6 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 				return true;
 			}
 		}
-
 		return false;
 	}
 

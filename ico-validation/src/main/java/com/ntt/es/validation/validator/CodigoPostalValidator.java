@@ -27,20 +27,18 @@ public class CodigoPostalValidator implements ConstraintValidator<ValidarCodigoP
 		boolean isValid = true;
 
 		if (Constantes.ESPANA.equals(dto.getPaisDestinoInversion())) {
-
+			// Si el país es España, el código postal debe ser obligatorio y válido
 			isValid = ValidationUtils.isNotNullOrEmpty(dto.getCodigoPostalInversion(),
 					"El código postal no puede estar vacio.", "codigoPostalInversion", context);
 
-			// Si el país es España, el código postal debe ser obligatorio y válido
 			isValid = ValidationUtils.isValidLength(dto.getCodigoPostalInversion(), 5,
 					"El código postal debe tener una longitud de 5 caracteres.", "codigoPostalInversion", context);
 
 			isValid = ValidationUtils.isValidDigits(dto.getCodigoPostalInversion(),
 					"El código postal solo puede contenter numeros.", "codigoPostalInversion", context);
-		}
-		else {
+		} else {
 			// Si el país no es España, el código postal se establece por defecto como "NA"
-			dto.setCodigoPostalInversion("NA");			
+			dto.setCodigoPostalInversion("NA");
 		}
 		return isValid;
 	}

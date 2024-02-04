@@ -27,25 +27,24 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 
 		if (dto.getPerteneceGrupo() && dto.getCuentasConsolidadas()) {
 
-			isValid = ValidationUtils.isValidNifFormat(dto.getNifMatrizGrupo(), "El valor del NIF de la Matriz Grupo es obligatorio",
-					"nifMatrizGrupo", context) && isValid;
+			isValid = ValidationUtils.isValidNifFormat(dto.getNifMatrizGrupo(),
+					"El valor del NIF de la Matriz Grupo es obligatorio", "nifMatrizGrupo", context);
 			isValid = ValidationUtils.isValidString(dto.getPaisDomicilioMatrizGrupo(),
-					"El país del domicilio de la Matriz Grupo es obligatorio.", "paisDomicilioMatrizGrupo", context)
-					&& isValid;
+					"El país del domicilio de la Matriz Grupo es obligatorio.", "paisDomicilioMatrizGrupo", context);
 			isValid = ValidationUtils.isValidDigitsCommas(dto.getNumEmpleadosFechaUltimoCierre(),
 					"El número de empleados a fecha de último cierre es obligatorio.", "numEmpleadosFechaUltimoCierre",
-					context) && isValid;
-			isValid = ValidationUtils.isValidDigitsCommas(dto.getFondosPropiosGrupo(), "Los fondos propios del grupo son obligatorios.",
-					"fondosPropiosGrupo", context) && isValid;
+					context);
+			isValid = ValidationUtils.isValidDigitsCommas(dto.getFondosPropiosGrupo(),
+					"Los fondos propios del grupo son obligatorios.", "fondosPropiosGrupo", context);
 			isValid = ValidationUtils.isValidDigitsCommas(dto.getFacturacionAnioAnteriorGrupo(),
 					"La facturación del año anterior del grupo es obligatoria.", "facturacionAnioAnteriorGrupo",
-					context) && isValid;
+					context);
 			isValid = ValidationUtils.isValidDigitsCommas(dto.getCifraActivoTotalFechaUltimoCierre(),
 					"La cifra de activo total a fecha de último cierre es obligatoria.",
-					"cifraActivoTotalFechaUltimoCierre", context) && isValid;
+					"cifraActivoTotalFechaUltimoCierre", context);
 			isValid = ValidationUtils.isValidDate(dto.getFechaConstitucionEmpresaMatriz(),
 					"La fecha de constitución de la empresa matriz es incorrecta.", "fechaConstitucionEmpresaMatriz",
-					context) && isValid;
+					context);
 
 		}
 
@@ -53,5 +52,4 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 
 	}
 
-	
 }

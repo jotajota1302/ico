@@ -29,6 +29,17 @@ public class ValidationUtils {
 		return true;
 	}
 
+	public static boolean isValidStringRegex(String value, String errorMessage, String propertyName,
+			ConstraintValidatorContext context, String regex) {
+		if (value == null || value.isEmpty() || !value.matches(regex)) {
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(errorMessage).addPropertyNode(propertyName)
+					.addConstraintViolation();
+			return false;
+		}
+		return true;
+	}
+
 	public static boolean isValidDigitsCommas(String value, String errorMessage, String propertyName,
 			ConstraintValidatorContext context) {
 		if (value == null || value.isEmpty() || !value.matches("[0-9,]+")) {
@@ -39,7 +50,7 @@ public class ValidationUtils {
 		}
 		return true;
 	}
-	
+
 	public static boolean isValidDigits(String value, String errorMessage, String propertyName,
 			ConstraintValidatorContext context) {
 		if (value == null || value.isEmpty() || !value.matches("[0-9]+")) {
@@ -70,7 +81,7 @@ public class ValidationUtils {
 		return true;
 	}
 
-	public static boolean isValidLength(String value,int length, String errorMessage, String propertyName,
+	public static boolean isValidLength(String value, int length, String errorMessage, String propertyName,
 			ConstraintValidatorContext context) {
 
 		if ((value.length() != length)) {
@@ -82,11 +93,11 @@ public class ValidationUtils {
 
 		return true;
 	}
-	
-	public static boolean isNotNullOrEmpty(String value,String errorMessage, String propertyName,
+
+	public static boolean isNotNullOrEmpty(String value, String errorMessage, String propertyName,
 			ConstraintValidatorContext context) {
 
-		if (value==null||value.isEmpty()) {
+		if (value == null || value.isEmpty()) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(errorMessage).addPropertyNode(propertyName)
 					.addConstraintViolation();
