@@ -5,9 +5,12 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ntt.es.model.DatosTitularesDto;
+import com.ntt.es.model.dto.DatosTitularesDto;
+import com.ntt.es.validation.utils.ValidationUtils;
 
 public class EmpresaValidator {
+
+	private static final String REGEX_STRING_VALID_CONTENT = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+";
 
 	Logger log = LoggerFactory.getLogger(EmpresaValidator.class);
 
@@ -18,21 +21,13 @@ public class EmpresaValidator {
 		boolean isValid = true;
 
 		// Validación del NIF titular
-		if (dto.getNifTitular() == null || !dto.getNifTitular().matches("[a-zA-Z0-9]+")) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("El campo NIF del titular no es correcto.")
-					.addPropertyNode("nifTitular").addConstraintViolation();
-			isValid = false;
-		}
+		isValid = ValidationUtils.isValidNifFormat(dto.getNifTitular(), "El campo NIF del titular no es correcto.",
+				"nifTitular", context);
 
 		// Validación de la Razón Social titular
-		if (dto.getRazonSocialTitular() == null || dto.getRazonSocialTitular().isEmpty()
-				|| !dto.getRazonSocialTitular().matches("[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+")) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("El campo Razón Social titular no es correcto.")
-					.addPropertyNode("razonSocialTitular").addConstraintViolation();
-			isValid = false;
-		}
+		isValid = ValidationUtils.isValidStringRegex(dto.getRazonSocialTitular(),
+				"El campo Razón Social titular no es correcto.", "razonSocialTitular", context,
+				REGEX_STRING_VALID_CONTENT)&&isValid;
 
 		// Validación del Poder Adjudicador
 		if (dto.getEsPoderAdjudicador() == null) {
@@ -44,39 +39,23 @@ public class EmpresaValidator {
 		}
 
 		// solo se validan si es poder adjudicador
-		if (dto.getEsPoderAdjudicador()) {
+		if (dto.getEsPoderAdjudicador() != null && dto.getEsPoderAdjudicador()) {
 			// Validación del Nif del contratista titular
-			if (dto.getNifContratistaTitular().isEmpty() || !dto.getNifContratistaTitular().isEmpty()
-					&& !dto.getNifContratistaTitular().matches("[a-zA-Z0-9]+")) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate("El campo NIF Contratista titular no es correcto.")
-						.addPropertyNode("nifContratistaTitular").addConstraintViolation();
-				isValid = false;
-			}
-			// Validación del Nif del subcontratista
-			if (dto.getNifSubcontratistaTitular().isEmpty() || !dto.getNifSubcontratistaTitular().isEmpty()
-					&& !dto.getNifSubcontratistaTitular().matches("[a-zA-Z0-9]+")) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate("El cammpo NIF Subcontratista titular no es correcto.")
-						.addPropertyNode("nifSubcontratistaTitular").addConstraintViolation();
-				isValid = false;
-			}
-		}
+			isValid = ValidationUtils.isValidNifFormat(dto.getNifContratistaTitular(),
+					"El campo NIF Contratista titular no es correcto.", "nifContratistaTitular", context)&&isValid;
 
-		if (dto.getDniNieTitularReal().isEmpty()
-				|| !dto.getDniNieTitularReal().isEmpty() && !dto.getDniNieTitularReal().matches("[a-zA-Z0-9]+")) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("El campo DNI/NIE titular real no es correcto.")
-					.addPropertyNode("dniNieTitularReal").addConstraintViolation();
-			isValid = false;
+			// Validación del Nif del subcontratista
+			isValid = ValidationUtils.isValidNifFormat(dto.getNifSubcontratistaTitular(),
+					"El cammpo NIF Subcontratista titular no es correcto.", "nifSubcontratistaTitular", context)&&isValid;
+
 		}
-		if (dto.getPrimerApellidoTitularReal().isEmpty() || !dto.getPrimerApellidoTitularReal().isEmpty()
-				&& !dto.getPrimerApellidoTitularReal().matches("[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+")) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("El campo Primer apellido titular real no es correcto.")
-					.addPropertyNode("primerApellidoTitularReal").addConstraintViolation();
-			isValid = false;
-		}
+		// Validación del DNI/NIE titular real
+		isValid = ValidationUtils.isValidNifFormat(dto.getDniNieTitularReal(),
+				"El campo DNI/NIE titular real no es correcto.", "dniNieTitularReal", context)&&isValid;
+		// Validación del Primer Apellio titualr real
+		isValid = ValidationUtils.isValidStringRegex(dto.getPrimerApellidoTitularReal(),
+				"El campo Primer apellido titular real no es correcto.", "primerApellidoTitularReal", context,
+				REGEX_STRING_VALID_CONTENT)&&isValid;
 
 		return isValid;
 	}

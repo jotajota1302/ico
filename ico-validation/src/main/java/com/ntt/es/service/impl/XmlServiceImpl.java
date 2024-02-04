@@ -11,13 +11,13 @@ import javax.xml.bind.Unmarshaller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ntt.es.service.XMLService;
-import com.ntt.es.xmlbean.Solicitudes;
+import com.ntt.es.model.xmlbean.Solicitudes;
+import com.ntt.es.service.XmlService;
 
 
 
 @Service
-public class XMLServiceImpl implements XMLService{
+public class XmlServiceImpl implements XmlService{
 
 	public Solicitudes getSolicitudes(String filePath) {
         try {

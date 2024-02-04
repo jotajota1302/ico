@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ntt.es.config.Constantes;
-import com.ntt.es.model.SolicitudFinanciacionDto;
+import com.ntt.es.model.dto.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarModalidad;
 
 public class ModalidadValidator implements ConstraintValidator<ValidarModalidad, SolicitudFinanciacionDto> {

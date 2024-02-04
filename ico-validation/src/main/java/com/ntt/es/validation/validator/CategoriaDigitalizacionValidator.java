@@ -6,8 +6,9 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ntt.es.model.SolicitudFinanciacionDto;
+import com.ntt.es.model.dto.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarCategoriaDigitalizacion;
+import com.ntt.es.validation.utils.ValidationUtils;
 
 public class CategoriaDigitalizacionValidator implements ConstraintValidator<ValidarCategoriaDigitalizacion, SolicitudFinanciacionDto> {
 
@@ -22,28 +23,15 @@ public class CategoriaDigitalizacionValidator implements ConstraintValidator<Val
   
     	log.debug("validando la categoria de digitalizacion");
     	
-        // Lógica de validación para la categoría de digitalización
+    	Boolean isValid=true;
+    	
         if (Boolean.TRUE.equals(dto.getEmpresaDigital())) {
-            // Si la empresa es digital, la categoría debe estar presente
-            if (dto.getCategoriaDigitalizacion() == null || dto.getCategoriaDigitalizacion().trim().isEmpty()) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate("La categoría de digitalización es obligatoria cuando la empresa es digital.")
-                        .addPropertyNode("categoriaDigitalizacion")
-                        .addConstraintViolation();
-                return false;
-            }
-        } else {
-            // Si la empresa no es digital, la categoría debe ser null o vacía
-            if (dto.getCategoriaDigitalizacion() != null && !dto.getCategoriaDigitalizacion().trim().isEmpty()) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate("La categoría de digitalización no aplica cuando la empresa no es digital.")
-                        .addPropertyNode("categoriaDigitalizacion")
-                        .addConstraintViolation();
-                return false;
-            }
+            isValid=ValidationUtils.isValidString(dto.getCategoriaDigitalizacion(), "La categoría de digitalización es obligatoria cuando la empresa es digital.", "categoriaDigitalizacion", context)&&isValid;
+        } else {           
+        	isValid=!ValidationUtils.isValidString(dto.getCategoriaDigitalizacion(), "La categoría de digitalización no aplica cuando la empresa no es digital.", "categoriaDigitalizacion", context)&&isValid;
         }
 
-        return true;
+        return isValid;
     }
     
  

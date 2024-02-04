@@ -2,9 +2,9 @@ package com.ntt.es.service;
 
 import java.util.List;
 
-import com.ntt.es.model.DatosAdicionalesDto;
-import com.ntt.es.model.DatosTitularesDto;
-import com.ntt.es.model.SolicitudFinanciacionDto;
+import com.ntt.es.model.dto.DatosAdicionalesDto;
+import com.ntt.es.model.dto.DatosTitularesDto;
+import com.ntt.es.model.dto.SolicitudFinanciacionDto;
 
 public interface SolicitudService {
 	

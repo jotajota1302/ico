@@ -2,9 +2,9 @@ package com.ntt.es.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ntt.es.xmlbean.Solicitudes;
+import com.ntt.es.model.xmlbean.Solicitudes;
 
-public interface XMLService {
+public interface XmlService {
 
 	public Solicitudes getSolicitudes(String filePath);
 	

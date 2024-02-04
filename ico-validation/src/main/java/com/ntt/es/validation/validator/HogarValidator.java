@@ -4,7 +4,7 @@ import javax.validation.ConstraintValidator;
 
 import org.springframework.stereotype.Component;
 
-import com.ntt.es.model.DatosTitularesDto;
+import com.ntt.es.model.dto.DatosTitularesDto;
 import com.ntt.es.validation.annotations.ValidarHogar;
 
 @Component

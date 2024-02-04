@@ -10,8 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ntt.es.config.Constantes;
-import com.ntt.es.model.SolicitudFinanciacionDto;
+import com.ntt.es.model.dto.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarPaisDestinoInversion;
+import com.ntt.es.validation.utils.ValidationUtils;
 
 public class PaisDestinoInversionValidator
 		implements ConstraintValidator<ValidarPaisDestinoInversion, SolicitudFinanciacionDto> {
@@ -27,6 +28,8 @@ public class PaisDestinoInversionValidator
 
 		log.debug("validando el pais destino Inversion");
 
+		boolean isValid = true;
+
 		// Validar si el país es diferente a España
 		if (!Constantes.ESPANA.equals(dto.getPaisDestinoInversion())) {
 
@@ -35,24 +38,17 @@ public class PaisDestinoInversionValidator
 				context.disableDefaultConstraintViolation();
 				context.buildConstraintViolationWithTemplate("No se permite el país ingresado.")
 						.addPropertyNode("paisDestinoInversion").addConstraintViolation();
-				return false;
+				isValid = false;
 			}
 
 			// Validar existencia de interés español
-			if (dto.getInteresEspanol() == null || dto.getInteresEspanol().trim().isEmpty()) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate("Se debe justificar el interés español.")
-						.addPropertyNode("interesEspanol").addConstraintViolation();
-				return false;
-			}
+			isValid = ValidationUtils.isValidString(dto.getInteresEspanol(), "El campo interes español no es correcto.",
+					"interesEspanol", context)&&isValid;
 
 			// Validar existencia de Justificación interés español
-			if (dto.getJustificacionInteresEspanol() == null || dto.getJustificacionInteresEspanol().trim().isEmpty()) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate("Se debe justificar la existencia de interés español.")
-						.addPropertyNode("justificacionInteresEspanol").addConstraintViolation();
-				return false;
-			}
+			isValid = ValidationUtils.isValidString(dto.getJustificacionInteresEspanol(),
+					"El campo justificacion de interes español no es correcto.", "justificacionInteresEspanol",
+					context)&&isValid;
 
 			// Validar que en el campo Línea no se hayan indicado valores específicos
 			if (esOperacionExcluida(dto.getLinea())) {
@@ -63,7 +59,7 @@ public class PaisDestinoInversionValidator
 			}
 		}
 
-		return true;
+		return isValid;
 	}
 
 	private boolean esPaisExcluido(String pais) {

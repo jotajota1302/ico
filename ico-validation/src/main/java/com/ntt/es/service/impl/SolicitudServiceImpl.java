@@ -13,9 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.ntt.es.model.DatosAdicionalesDto;
-import com.ntt.es.model.DatosTitularesDto;
-import com.ntt.es.model.SolicitudFinanciacionDto;
+import com.ntt.es.model.dto.DatosAdicionalesDto;
+import com.ntt.es.model.dto.DatosTitularesDto;
+import com.ntt.es.model.dto.SolicitudFinanciacionDto;
 import com.ntt.es.service.SolicitudService;
 
 @Service
@@ -61,6 +61,8 @@ public class SolicitudServiceImpl implements SolicitudService {
 
 	public List<String> validate() {
 
+		//convertir a DTO		
+		
 		List<String> errores = new ArrayList<>();
 		
 		// Obtén el validador

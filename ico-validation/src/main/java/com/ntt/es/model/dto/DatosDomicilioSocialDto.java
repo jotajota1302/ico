@@ -1,11 +1,10 @@
-package com.ntt.es.model;
+package com.ntt.es.model.dto;
 
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -28,12 +27,8 @@ public class DatosDomicilioSocialDto {
 	@Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "La población solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ")
 	private String poblacion;
 
-	@NotNull(message = "El código postal no puede ser nulo.")
-	@Digits(integer = 5, fraction = 0, message = "El código postal debe contener como máximo 5 dígitos.")
-	@Min(value = 10000, message = "El código postal debe tener al menos 5 dígitos.")
-	@Max(value = 99999, message = "El código postal debe tener como máximo 5 dígitos.")
-	private Integer codigoPostal;
-
-	
+	@Size(min = 5, max = 5, message = "El código postal debe tener exactamente 5 caracteres.")
+	@Pattern(regexp = "[0-9]+", message = "El código postal debe contener solo números.")
+	private String codigoPostal;
 
 }
