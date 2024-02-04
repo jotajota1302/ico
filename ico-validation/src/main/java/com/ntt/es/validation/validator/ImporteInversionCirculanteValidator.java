@@ -16,9 +16,8 @@ import com.ntt.es.validation.annotations.ValidarImporteInversionCirculante;
 public class ImporteInversionCirculanteValidator
 		implements ConstraintValidator<ValidarImporteInversionCirculante, SolicitudFinanciacionDto> {
 
-
 	private static Logger log = LoggerFactory.getLogger(ImporteInversionCirculanteValidator.class);
-	
+
 	@Override
 	public void initialize(ValidarImporteInversionCirculante constraintAnnotation) {
 	}
@@ -27,7 +26,7 @@ public class ImporteInversionCirculanteValidator
 	public boolean isValid(SolicitudFinanciacionDto dto, ConstraintValidatorContext context) {
 
 		log.debug("validando el Importe de Inversion Circulante");
-		
+
 		List<String> lineasObligatorias = Arrays.asList(Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES,
 				Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_SECTOR_TURISTICO);
 
@@ -42,11 +41,13 @@ public class ImporteInversionCirculanteValidator
 			}
 		}
 
-		List<String> lineasConValorCero = Arrays.asList(Constantes.LINEA_ICO_MRR_VERDE,Constantes.LINEA_ICO_MRR_AUDIOVISUAL,
-				Constantes.LINEA_ICO_MRR_PROMOCION_DE_VIVIENDA_SOCIAL,Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_PERTE_NEL);
+		List<String> lineasConValorCero = Arrays.asList(Constantes.LINEA_ICO_MRR_VERDE,
+				Constantes.LINEA_ICO_MRR_AUDIOVISUAL, Constantes.LINEA_ICO_MRR_PROMOCION_DE_VIVIENDA_SOCIAL,
+				Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_PERTE_NEL);
 
 		// lineas donde el campo tiene que ser 0
-		boolean inhabilitarCampo = lineasConValorCero.contains(dto.getLinea()) || Constantes.LEASING.equals(dto.getModalidad());
+		boolean inhabilitarCampo = lineasConValorCero.contains(dto.getLinea())
+				|| Constantes.LEASING.equals(dto.getModalidad());
 
 		if (inhabilitarCampo) {
 			// Inhabilitar el campo y establecer el valor predeterminado
@@ -54,7 +55,6 @@ public class ImporteInversionCirculanteValidator
 		} else {
 			// Validar que el importe informado sea igual o superior a 0 e inferior al
 			// importe de activos
-
 			if (dto.getImporteInversionCirculante() < 0
 					|| dto.getImporteInversionCirculante() > dto.getImporteInversionActivosFijos()) {
 				context.disableDefaultConstraintViolation();

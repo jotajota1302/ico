@@ -1,64 +1,35 @@
 package com.ntt.es.validation.validator;
 
-import java.util.Objects;
-
 import javax.validation.ConstraintValidatorContext;
 
 import com.ntt.es.model.dto.DatosTitularesDto;
+import com.ntt.es.validation.utils.ValidationUtils;
 
 public class PersonaValidator {
+
+	private static final String STRING_REGEX = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+";
 
 	public boolean isValid(DatosTitularesDto dto, ConstraintValidatorContext context) {
 	
 		boolean isValid = true;
 	
 		// Validación del DNI/NIE titular
-		if (dto.getDniNieTitular().isEmpty()
-				|| !dto.getDniNieTitular().isEmpty() && !dto.getDniNieTitular().matches("[a-zA-Z0-9]+")) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("El campo DNI/NIE titular no es correcto.")
-					.addPropertyNode("dniNieTitular").addConstraintViolation();
-			isValid = false;
-		}		
+		isValid=ValidationUtils.isValidNifFormat(dto.getDniNieTitular(), "El campo DNI/NIE titular no es correcto.", "dniNieTitular", context);		
 	
 		// Validación de Nombre Titular
-		if (!validarCampoTexto(dto.getNombreTitular())) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("El campo Nombre Titular no es correcto.")
-					.addPropertyNode("nombreTitular").addConstraintViolation();
-			isValid = false;
-		}
-	
+		isValid=ValidationUtils.isValidStringRegex(dto.getNombreTitular(), "El campo Nombre Titular no es correcto.", "nombreTitular", context, STRING_REGEX);
+			
 		// Validación de Primer Apellido
-		if (!validarCampoTexto(dto.getPrimerApellidoTitular())) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("El campo Primer Apellido no es correcto.")
-					.addPropertyNode("primerApellidoTitular").addConstraintViolation();
-			isValid = false;
-		}
-	
+		isValid=ValidationUtils.isValidStringRegex(dto.getPrimerApellidoTitular(), "El campo Primer Apellido no es correcto.", "primerApellidoTitular", context, STRING_REGEX);
+			
 		// Validación de Segundo Apellido
-		if (!validarCampoTexto(dto.getSegundoApellidoTitular())) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("El campo Segundo Apellido no es correcto.")
-					.addPropertyNode("segundoApellidoTitular").addConstraintViolation();
-			isValid = false;
-		}
-	
+		isValid=ValidationUtils.isValidStringRegex(dto.getSegundoApellidoTitular(), "El campo Segundo Apellido no es correcto.", "segundoApellidoTitular", context, STRING_REGEX);
+			
 		// Validación de Fecha de Nacimiento
-		if (Objects.isNull(dto.getFechaNacimiento())) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("La fecha de nacimiento no puede ser nula.")
-					.addPropertyNode("fechaNacimiento").addConstraintViolation();
-			isValid = false;
-		}
+		isValid=ValidationUtils.isNotNull(dto.getFechaNacimiento(), "La fecha de nacimiento no puede ser nula.", "fechaNacimiento", context);		
 	
 		return isValid;
 	}
 	
-	boolean validarCampoTexto(String campoTexto) {
-		String patron = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+";
-		return campoTexto.matches(patron);
-	}
 
 }

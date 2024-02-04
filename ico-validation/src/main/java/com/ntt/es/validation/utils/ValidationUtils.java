@@ -107,4 +107,16 @@ public class ValidationUtils {
 		return true;
 	}
 
+	public static boolean isNotNull(Object value, String errorMessage, String propertyName,
+			ConstraintValidatorContext context) {
+		if (value == null) {
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(errorMessage).addPropertyNode(propertyName)
+					.addConstraintViolation();
+			return false;
+		}
+
+		return true;
+	}
+
 }
