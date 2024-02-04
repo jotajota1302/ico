@@ -43,13 +43,13 @@ public class CodigoCampoIntervencionAnexoVIIValidator
 		if (Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_PERTE_NEL.equals(dto.getLinea())) {
 			// Verifica que el código de intervención sea uno de los permitidos
 			isValid=Constantes.COD_009BIS.equals(dto.getCodigoCampoIntervencionAnexoVII())
-					|| Constantes.COD_011.equals(dto.getCodigoCampoIntervencionAnexoVII());
+					|| Constantes.COD_011.equals(dto.getCodigoCampoIntervencionAnexoVII())&&isValid;
 		}
 		// Si la línea es ICO MRR Audiovisual o ICO MRR Audiovisual – PERTE NEL
 		if (Constantes.LINEA_ICO_MRR_AUDIOVISUAL.equals(dto.getLinea()) || Constantes.LINEA_ICO_MRR_AUDIOVISUAL_PERTE_NEL.equals(dto.getLinea())) {
 			// Verifica que el código de intervención sea uno de los permitidos
 			isValid= Constantes.COD_010TER.equals(dto.getCodigoCampoIntervencionAnexoVII())
-					|| Constantes.COD_021BIS.equals(dto.getCodigoCampoIntervencionAnexoVII());
+					|| Constantes.COD_021BIS.equals(dto.getCodigoCampoIntervencionAnexoVII())&&isValid;
 		}
 
 		return isValid;

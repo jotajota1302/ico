@@ -26,9 +26,9 @@ public class CategoriaDigitalizacionValidator implements ConstraintValidator<Val
     	Boolean isValid=true;
     	
         if (Boolean.TRUE.equals(dto.getEmpresaDigital())) {
-            isValid=ValidationUtils.isValidString(dto.getCategoriaDigitalizacion(), "La categoría de digitalización es obligatoria cuando la empresa es digital.", "categoriaDigitalizacion", context);
+            isValid=ValidationUtils.isValidString(dto.getCategoriaDigitalizacion(), "La categoría de digitalización es obligatoria cuando la empresa es digital.", "categoriaDigitalizacion", context)&&isValid;
         } else {           
-        	isValid=!ValidationUtils.isValidString(dto.getCategoriaDigitalizacion(), "La categoría de digitalización no aplica cuando la empresa no es digital.", "categoriaDigitalizacion", context);
+        	isValid=!ValidationUtils.isValidString(dto.getCategoriaDigitalizacion(), "La categoría de digitalización no aplica cuando la empresa no es digital.", "categoriaDigitalizacion", context)&&isValid;
         }
 
         return isValid;

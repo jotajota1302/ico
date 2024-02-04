@@ -33,7 +33,7 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 		boolean isValid = true;
 
 		// Verificar el tipo de línea seleccionada
-		isValid = validaLineaTipoCliente(dto, dto.getLinea(), context);		
+		isValid = validaLineaTipoCliente(dto, dto.getLinea(), context)&&isValid;		
 
 		if (Constantes.EMPRESA_PRIVADA.equals(dto.getTipoCliente())) {
 			if (!empresaPrivadaValidator.isValid(dto, context)) {

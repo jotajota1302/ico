@@ -14,19 +14,19 @@ public class PersonaValidator {
 		boolean isValid = true;
 	
 		// Validación del DNI/NIE titular
-		isValid=ValidationUtils.isValidNifFormat(dto.getDniNieTitular(), "El campo DNI/NIE titular no es correcto.", "dniNieTitular", context);		
+		isValid=ValidationUtils.isValidNifFormat(dto.getDniNieTitular(), "El campo DNI/NIE titular no es correcto.", "dniNieTitular", context)&&isValid;		
 	
 		// Validación de Nombre Titular
-		isValid=ValidationUtils.isValidStringRegex(dto.getNombreTitular(), "El campo Nombre Titular no es correcto.", "nombreTitular", context, STRING_REGEX);
+		isValid=ValidationUtils.isValidStringRegex(dto.getNombreTitular(), "El campo Nombre Titular no es correcto.", "nombreTitular", context, STRING_REGEX)&&isValid;
 			
 		// Validación de Primer Apellido
-		isValid=ValidationUtils.isValidStringRegex(dto.getPrimerApellidoTitular(), "El campo Primer Apellido no es correcto.", "primerApellidoTitular", context, STRING_REGEX);
+		isValid=ValidationUtils.isValidStringRegex(dto.getPrimerApellidoTitular(), "El campo Primer Apellido no es correcto.", "primerApellidoTitular", context, STRING_REGEX)&&isValid;
 			
 		// Validación de Segundo Apellido
-		isValid=ValidationUtils.isValidStringRegex(dto.getSegundoApellidoTitular(), "El campo Segundo Apellido no es correcto.", "segundoApellidoTitular", context, STRING_REGEX);
+		isValid=ValidationUtils.isValidStringRegex(dto.getSegundoApellidoTitular(), "El campo Segundo Apellido no es correcto.", "segundoApellidoTitular", context, STRING_REGEX)&&isValid;
 			
 		// Validación de Fecha de Nacimiento
-		isValid=ValidationUtils.isNotNull(dto.getFechaNacimiento(), "La fecha de nacimiento no puede ser nula.", "fechaNacimiento", context);		
+		isValid=ValidationUtils.isNotNull(dto.getFechaNacimiento(), "La fecha de nacimiento no puede ser nula.", "fechaNacimiento", context)&&isValid;		
 	
 		return isValid;
 	}

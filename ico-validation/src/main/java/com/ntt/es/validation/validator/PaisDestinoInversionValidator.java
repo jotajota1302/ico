@@ -43,12 +43,12 @@ public class PaisDestinoInversionValidator
 
 			// Validar existencia de interés español
 			isValid = ValidationUtils.isValidString(dto.getInteresEspanol(), "El campo interes español no es correcto.",
-					"interesEspanol", context);
+					"interesEspanol", context)&&isValid;
 
 			// Validar existencia de Justificación interés español
 			isValid = ValidationUtils.isValidString(dto.getJustificacionInteresEspanol(),
 					"El campo justificacion de interes español no es correcto.", "justificacionInteresEspanol",
-					context);
+					context)&&isValid;
 
 			// Validar que en el campo Línea no se hayan indicado valores específicos
 			if (esOperacionExcluida(dto.getLinea())) {

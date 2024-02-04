@@ -27,7 +27,7 @@ public class EmpresaValidator {
 		// Validación de la Razón Social titular
 		isValid = ValidationUtils.isValidStringRegex(dto.getRazonSocialTitular(),
 				"El campo Razón Social titular no es correcto.", "razonSocialTitular", context,
-				REGEX_STRING_VALID_CONTENT);
+				REGEX_STRING_VALID_CONTENT)&&isValid;
 
 		// Validación del Poder Adjudicador
 		if (dto.getEsPoderAdjudicador() == null) {
@@ -42,20 +42,20 @@ public class EmpresaValidator {
 		if (dto.getEsPoderAdjudicador() != null && dto.getEsPoderAdjudicador()) {
 			// Validación del Nif del contratista titular
 			isValid = ValidationUtils.isValidNifFormat(dto.getNifContratistaTitular(),
-					"El campo NIF Contratista titular no es correcto.", "nifContratistaTitular", context);
+					"El campo NIF Contratista titular no es correcto.", "nifContratistaTitular", context)&&isValid;
 
 			// Validación del Nif del subcontratista
 			isValid = ValidationUtils.isValidNifFormat(dto.getNifSubcontratistaTitular(),
-					"El cammpo NIF Subcontratista titular no es correcto.", "nifSubcontratistaTitular", context);
+					"El cammpo NIF Subcontratista titular no es correcto.", "nifSubcontratistaTitular", context)&&isValid;
 
 		}
 		// Validación del DNI/NIE titular real
 		isValid = ValidationUtils.isValidNifFormat(dto.getDniNieTitularReal(),
-				"El campo DNI/NIE titular real no es correcto.", "dniNieTitularReal", context);
+				"El campo DNI/NIE titular real no es correcto.", "dniNieTitularReal", context)&&isValid;
 		// Validación del Primer Apellio titualr real
 		isValid = ValidationUtils.isValidStringRegex(dto.getPrimerApellidoTitularReal(),
 				"El campo Primer apellido titular real no es correcto.", "primerApellidoTitularReal", context,
-				REGEX_STRING_VALID_CONTENT);
+				REGEX_STRING_VALID_CONTENT)&&isValid;
 
 		return isValid;
 	}

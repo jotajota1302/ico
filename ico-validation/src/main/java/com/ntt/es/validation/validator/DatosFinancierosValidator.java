@@ -40,23 +40,23 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 				&& dto.getPerteneceGrupo() && dto.getCuentasConsolidadas()) {
 
 			isValid = ValidationUtils.isValidNifFormat(dto.getNifMatrizGrupo(),
-					"El valor del NIF de la Matriz Grupo es obligatorio", "nifMatrizGrupo", context);
+					"El valor del NIF de la Matriz Grupo es obligatorio", "nifMatrizGrupo", context)&&isValid;
 			isValid = ValidationUtils.isValidString(dto.getPaisDomicilioMatrizGrupo(),
-					"El país del domicilio de la Matriz Grupo es obligatorio.", "paisDomicilioMatrizGrupo", context);
+					"El país del domicilio de la Matriz Grupo es obligatorio.", "paisDomicilioMatrizGrupo", context)&&isValid;
 			isValid = ValidationUtils.isValidDigitsCommas(dto.getNumEmpleadosFechaUltimoCierre(),
 					"El número de empleados a fecha de último cierre es obligatorio.", "numEmpleadosFechaUltimoCierre",
-					context);
+					context)&&isValid;
 			isValid = ValidationUtils.isValidDigitsCommas(dto.getFondosPropiosGrupo(),
-					"Los fondos propios del grupo son obligatorios.", "fondosPropiosGrupo", context);
+					"Los fondos propios del grupo son obligatorios.", "fondosPropiosGrupo", context)&&isValid;
 			isValid = ValidationUtils.isValidDigitsCommas(dto.getFacturacionAnioAnteriorGrupo(),
 					"La facturación del año anterior del grupo es obligatoria.", "facturacionAnioAnteriorGrupo",
-					context);
+					context)&&isValid;
 			isValid = ValidationUtils.isValidDigitsCommas(dto.getCifraActivoTotalFechaUltimoCierre(),
 					"La cifra de activo total a fecha de último cierre es obligatoria.",
-					"cifraActivoTotalFechaUltimoCierre", context);
+					"cifraActivoTotalFechaUltimoCierre", context)&&isValid;
 			isValid = ValidationUtils.isValidDate(dto.getFechaConstitucionEmpresaMatriz(),
 					"La fecha de constitución de la empresa matriz es incorrecta.", "fechaConstitucionEmpresaMatriz",
-					context);
+					context)&&isValid;
 
 		}
 
@@ -66,9 +66,9 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 				&& dto.getPerteneceGrupo() && !dto.getCuentasConsolidadas()) {
 
 			isValid = ValidationUtils.isValidNifFormat(dto.getNifMatrizGrupo(),
-					"El valor del NIF de la Matriz Grupo es obligatorio", "nifMatrizGrupo", context);
+					"El valor del NIF de la Matriz Grupo es obligatorio", "nifMatrizGrupo", context)&&isValid;
 			isValid = ValidationUtils.isValidString(dto.getPaisDomicilioMatrizGrupo(),
-					"El país del domicilio de la Matriz Grupo es obligatorio.", "paisDomicilioMatrizGrupo", context);
+					"El país del domicilio de la Matriz Grupo es obligatorio.", "paisDomicilioMatrizGrupo", context)&&isValid;
 
 			for (int i = 0; i < dto.getDatosEmpresasGrupo().size(); i++) {
 				DatosFinancierosEmpresaGrupoDto empresaDto = dto.getDatosEmpresasGrupo().get(i);
@@ -145,16 +145,16 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 
 		// validacion pagina web
 		isValid = ValidationUtils.isValidString(dto.getPaginaWeb(),
-				"La página web es obligatoria. En caso de no tener página web, utilizar 'NA'.", "paginaWeb", context);
+				"La página web es obligatoria. En caso de no tener página web, utilizar 'NA'.", "paginaWeb", context)&&isValid;
 
 		// validacion persona contacto web
 		isValid = ValidationUtils.isValidStringRegex(dto.getCorreoPersonaContacto(),
 				"El correo electrónico de la persona de contacto es obligatorio. En caso de no tener correo electrónico, utilizar 'NA'.",
-				"correoPersonaContacto", context, "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b|NA");
+				"correoPersonaContacto", context, "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b|NA")&&isValid;
 
 		// validacion pagina web
 		isValid = ValidationUtils.isNotNullOrEmpty(dto.getCodigoCNAECliente(), "El código CNAE cliente es obligatorio.",
-				"codigoCNAECliente", context);
+				"codigoCNAECliente", context)&&isValid;
 
 		return isValid;
 
