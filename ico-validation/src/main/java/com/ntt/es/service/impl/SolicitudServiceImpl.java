@@ -11,11 +11,13 @@ import javax.validation.ValidatorFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.ntt.es.model.dto.DatosAdicionalesDto;
 import com.ntt.es.model.dto.DatosTitularesDto;
 import com.ntt.es.model.dto.SolicitudFinanciacionDto;
+import com.ntt.es.model.xmlbean.Solicitud;
 import com.ntt.es.service.SolicitudService;
 
 @Service
@@ -59,7 +61,7 @@ public class SolicitudServiceImpl implements SolicitudService {
 		
 	}
 
-	public List<String> validate() {
+	public List<String> validate(SolicitudFinanciacionDto solicitudDto, boolean cargaSolicitudes) {
 
 		//convertir a DTO		
 		
@@ -70,14 +72,26 @@ public class SolicitudServiceImpl implements SolicitudService {
 		Validator validator = factory.getValidator();
 
 		// Crea tu objeto a validar o lo que conviertes del xml
+
 		SolicitudFinanciacionDto solicitud = new SolicitudFinanciacionDto();
 		solicitud.setLinea("ICO MRR Promoción Vivienda Social");
+		
+		if(solicitudDto != null) {
+			solicitud = solicitudDto;
+		}
+		
+		final SolicitudFinanciacionDto solicitudValidate = solicitud;
 
 		// Realiza la validación
-		Set<ConstraintViolation<SolicitudFinanciacionDto>> violations = validator.validate(solicitud);
+		Set<ConstraintViolation<SolicitudFinanciacionDto>> violations = validator.validate(solicitudValidate);
 
 		violations.forEach(v -> {
-			errores.add(v.getMessage());
+			String msg = v.getMessage();
+			if(cargaSolicitudes) {
+				msg = solicitudValidate.getResumen()+" - "+msg;
+			}
+				
+			errores.add(msg);
 		});
 
 		return errores;
@@ -85,7 +99,41 @@ public class SolicitudServiceImpl implements SolicitudService {
 	}
 
 
-	
+	@Override
+	public List<String> cargarSolicitudes(List<Solicitud> solicitudesList) {
+		List<String> allErrores = new ArrayList<>();
+		List<SolicitudFinanciacionDto> solicitudesCorrectas = new ArrayList<>();
+		
+		for(int i = 0; i < solicitudesList.size(); i++) {
+			SolicitudFinanciacionDto dto = new SolicitudFinanciacionDto();
+			BeanUtils.copyProperties(solicitudesList.get(i), dto);
+			copiaPropiedadesCustomizadas(solicitudesList.get(i), dto);
+			dto.setOrdenCarga(i+1);
+			
+			List<String> errores = validate(dto, true);
+			
+			if(errores != null) {
+				allErrores.addAll(errores);
+			} else {
+				solicitudesCorrectas.add(dto);
+			}
+		}
+		
+		if (solicitudesCorrectas.size() == solicitudesList.size()) {
+			solicitudesCorrectas.forEach(solicitudCorrecta -> {
+				guardarSolicitud(solicitudCorrecta);
+			});
+			
+		}
+		
+		return allErrores;
+	}
 
+
+	private void copiaPropiedadesCustomizadas(Solicitud solicitud, SolicitudFinanciacionDto dto) {
+		
+		dto.setEmpresaDigital("S".equalsIgnoreCase(solicitud.getEmpresaDigital()));
+	
+	}
 	
 }

@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ntt.es.model.dto.DatosAdicionalesDto;
 import com.ntt.es.model.dto.DatosTitularesDto;
 import com.ntt.es.model.dto.SolicitudFinanciacionDto;
+import com.ntt.es.model.xmlbean.Solicitud;
 import com.ntt.es.model.xmlbean.Solicitudes;
 import com.ntt.es.service.SolicitudService;
 import com.ntt.es.service.XmlService;
@@ -124,12 +125,14 @@ public class SolicitudController {
 	public ResponseEntity<?> carga(@RequestParam("xmlFile") MultipartFile file) {
 
 		Solicitudes solicitudes = loadService.getSolicitudesMF(file);
+		List<Solicitud> solicitudesList = solicitudes.getSolicitudes();
+		List<String> errores = solicitudService.cargarSolicitudes(solicitudesList);
 
-		//TODO convertir a los DTO y validar las solicitudes
-		
-		solicitudService.guardarSolicitud(null);
-		
-		return ResponseEntity.ok(solicitudes);
+		if(errores.isEmpty()) {
+			return ResponseEntity.ok(solicitudesList);
+		} else {
+			return ResponseEntity.ok(errores);
+		}
 	}
 	
 	

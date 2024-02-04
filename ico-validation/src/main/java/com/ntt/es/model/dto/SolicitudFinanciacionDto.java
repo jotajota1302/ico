@@ -1,5 +1,6 @@
 package com.ntt.es.model.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -41,9 +42,9 @@ public class SolicitudFinanciacionDto {
 
 	private String modalidad;
 
-	private Double importeTotalSolicitado;
+	private double importeTotalSolicitado;
 
-	private Double importeSolicitadoICO;
+	private double importeSolicitadoICO;
 
 	@Positive(message = "El Importe de inversión en activos fijos debe ser superior a 0.")
 	private double importeInversionActivosFijos;
@@ -69,22 +70,31 @@ public class SolicitudFinanciacionDto {
 	@NotBlank(message = "El campo Código CNAE de la inversión es obligatorio.")
 	private String codigoCNAEInversion;
 
-	@NotBlank
+	@NotBlank(message = "El campo codigoIntervencionAnexoVI es obligatorio.")
 	private String codigoIntervencionAnexoVI;
 
-	@NotBlank
+	@NotBlank(message = "El campo nombreIntervencionAnexoVI es obligatorio.")
 	private String nombreIntervencionAnexoVI;
 	
-	@NotBlank
+	@NotBlank(message = "El campo porcentajeIntervencionAnexoVI es obligatorio.")
 	private String porcentajeIntervencionAnexoVI;
 
-	@NotBlank
+	@NotBlank(message = "El campo codigoCampoIntervencionAnexoVII es obligatorio.")
 	private String codigoCampoIntervencionAnexoVII;
 	
-	@NotBlank
+	@NotBlank(message = "El campo nombreIntervencionAnexoVII es obligatorio.")
 	private String nombreIntervencionAnexoVII;
 
-	@NotBlank
+	@NotBlank(message = "El campo porcentajeIntervencionAnexoVII es obligatorio.")
 	private String porcentajeIntervencionAnexoVII;
+	
+	private Integer ordenCarga;
+
+	public String getResumen() {
+		return "Solicitud Nº"+ ordenCarga.intValue()+ " (" + 
+			(this.linea != null ? this.linea : "") +
+			(this.entidad != null ? this.entidad : "")
+			+") ";
+	}
 
 }
