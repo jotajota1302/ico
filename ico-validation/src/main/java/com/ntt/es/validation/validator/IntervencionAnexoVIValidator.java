@@ -9,11 +9,14 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ntt.es.config.Constantes;
 import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarIntervencionAnexoVI;
 
 public class IntervencionAnexoVIValidator
 		implements ConstraintValidator<ValidarIntervencionAnexoVI, SolicitudFinanciacionDto> {
+
+	
 
 	private static Logger log = LoggerFactory.getLogger(IntervencionAnexoVIValidator.class);
 
@@ -23,40 +26,67 @@ public class IntervencionAnexoVIValidator
 
 	@Override
 	public boolean isValid(SolicitudFinanciacionDto dto, ConstraintValidatorContext context) {
-		
-	    log.debug("Validando la intervención del AnexoVI");
 
-	    String linea = dto.getLinea();
-	    String categoria = dto.getCategoriaDigitalizacion();
+		log.debug("Validando la intervención del AnexoVI");
 
-	    List<String> lineasDeshabilitadas = Arrays.asList(
-	            "ICO MRR Empresas y Emprendedores",
-	            "ICO MRR Empresas y Emprendedores – Sector Turístico",
-	            "ICO MRR Empresas y Emprendedores – PERTE NEL",
-	            "ICO MRR Audiovisual",
-	            "ICO MRR Audiovisual – PERTE NEL"
-	    );
+		boolean isValid = true;
 
-	    if (lineasDeshabilitadas.contains(linea)) {
-	        dto.setCodigoIntervencionAnexoVI(null);
-	        return true;
-	    }
+		String linea = dto.getLinea();
+	
+		List<String> lineasDeshabilitadas = Arrays.asList(Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES,
+				Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_SECTOR_TURISTICO,
+				Constantes.LINEA_ICO_MRR_EMPRESAS_Y_EMPRENDEDORES_PERTE_NEL, Constantes.LINEA_ICO_MRR_AUDIOVISUAL,
+				Constantes.LINEA_ICO_MRR_AUDIOVISUAL_PERTE_NEL);
 
-	    if ("ICO MRR Promoción Vivienda Social".equals(linea)) {
-	        return "025ter".equals(categoria) || "025bis".equals(categoria);
-	    }
+		if (lineasDeshabilitadas.contains(linea)) {
+			dto.setCodigoIntervencionAnexoVI(null);
+			isValid = true;
+		}
 
-	    if ("ICO MRR Verde".equals(linea) || "ICO MRR Verde – PERTE ERHA".equals(linea)) {
-	        boolean categoriaValida = "CategoriaValida1".equals(categoria) || "CategoriaValida2".equals(categoria);
+		if (Constantes.LINEA_ICO_MRR_PROMOCION_DE_VIVIENDA_SOCIAL.equals(linea)) {
 
-	        if ("ICO MRR Verde – PERTE ERHA".equals(linea)) {
-	            return categoriaValida && ("022".equals(categoria) || "033".equals(categoria) || "027".equals(categoria));
-	        }
+			List<String> valoresPermitidos = Arrays.asList(Constantes.COD_025TER, Constantes.COD_025BIS);
 
-	        return categoriaValida;
-	    }
+			if (!dto.getCodigoIntervencionAnexoVI().isEmpty()
+					&& !valoresPermitidos.contains(dto.getCodigoIntervencionAnexoVI())) {
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(
+						"El valor del codigoIntervencionAnexoVI no es correcto para para esta linea")
+						.addPropertyNode("codigoIntervencionAnexoVI").addConstraintViolation();
+				isValid = false;
+			}
+		}
 
-	    return true;
+		if (Constantes.LINEA_ICO_MRR_VERDE.equals(linea) || Constantes.LINEA_ICO_MRR_VERDE_PERTE_ERHA.equals(linea)) {
+
+			// TODO los posibles valores vienen de Ver Excel Códigos campos de intervención
+			// Anexo VI en la carpeta material complementario formulario de solicitud.
+			List<String> valoresPermitidosMrrVerde = Arrays.asList("A", "B", "C");
+
+			if (!dto.getCodigoIntervencionAnexoVI().isEmpty()
+					&& !valoresPermitidosMrrVerde.contains(dto.getCodigoIntervencionAnexoVI())) {
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate("El valor del codigoIntervencionAnexoVI no es correcto para esta linea")
+						.addPropertyNode("codigoIntervencionAnexoVI").addConstraintViolation();
+				isValid = false;
+			}
+		}
+
+		if (Constantes.LINEA_ICO_MRR_VERDE_PERTE_ERHA.equals(linea)) {
+			
+			//TODO estos valores sacarlos de aqui
+			List<String> valoresPermitidosMrrVerde = Arrays.asList("022", "033", "027");
+
+			if (!dto.getCodigoIntervencionAnexoVI().isEmpty()
+					&& !valoresPermitidosMrrVerde.contains(dto.getCodigoIntervencionAnexoVI())) {
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate("El valor del codigoIntervencionAnexoVI no es correcto para esta linea")
+						.addPropertyNode("codigoIntervencionAnexoVI").addConstraintViolation();
+				isValid = false;
+			}
+		}
+
+		return isValid;
 	}
 
 }

@@ -73,7 +73,7 @@ public class SolicitudFinanciacionDto {
 	private String codigoIntervencionAnexoVI;
 
 	@NotBlank
-	private String nombreIntervencinAnexoVI;
+	private String nombreIntervencionAnexoVI;
 	
 	@NotBlank
 	private String porcentajeIntervencionAnexoVI;

@@ -9,6 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ntt.es.config.Constantes;
 import com.ntt.es.model.SolicitudFinanciacionDto;
 import com.ntt.es.validation.annotations.ValidarFechaPagoPrimeraFactura;
 
@@ -31,7 +32,7 @@ public class FechaPagoPrimeraFacturaValidator
 
 		// Validar que la fecha no sea anterior al 01-01-2023, excepto para la línea ICO
 		// MRR Promoción Vivienda Social
-		if (!"ICO MRR Promoción Vivienda Social".equals(dto.getLinea())
+		if (!Constantes.LINEA_ICO_MRR_PROMOCION_DE_VIVIENDA_SOCIAL.equals(dto.getLinea())
 				&& fechaPagoPrimeraFacturaLocalDate.isBefore(LocalDate.of(2023, 1, 1))) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(

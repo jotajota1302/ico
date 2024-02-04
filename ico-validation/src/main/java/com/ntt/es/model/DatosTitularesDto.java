@@ -39,7 +39,6 @@ public class DatosTitularesDto {
 //    @Pattern(regexp = "[a-zA-Z0-9.,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ]+", message = "El Primer apellido titular real solo puede contener letras, dígitos y los caracteres .,;ñáéíóúüÑÁÉÍÓÚÜàèìòùÀÈÌÒÙ")
     private String primerApellidoTitularReal;
 	
-    //Campos Autonomo
 	private String dniNieTitular;
 
     private String nombreTitular; 
