@@ -8,7 +8,7 @@ import com.ntt.es.model.DatosTitularesDto;
 import com.ntt.es.validation.annotations.ValidarEmpresa;
 
 @Component
-public class EmpresaPublicaValidator extends EmpresaValidator implements ConstraintValidator<ValidarEmpresa, DatosTitularesDto> {
+public class UniversidadValidator extends EmpresaValidator implements ConstraintValidator<ValidarEmpresa, DatosTitularesDto> {
 
 	
 

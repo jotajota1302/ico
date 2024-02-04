@@ -13,7 +13,7 @@ import com.ntt.es.validation.validator.EmpresaPrivadaValidator;
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = EmpresaPrivadaValidator.class)
-public @interface ValidarEmpresaPrivada {
+public @interface ValidarEmpresa {
 	
 	String message() default "Los campos para la tipologia de Empresa Privada no son correctos";
 

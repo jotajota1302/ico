@@ -5,10 +5,10 @@ import javax.validation.ConstraintValidator;
 import org.springframework.stereotype.Component;
 
 import com.ntt.es.model.DatosTitularesDto;
-import com.ntt.es.validation.annotations.ValidarEmpresaPrivada;
+import com.ntt.es.validation.annotations.ValidarEmpresa;
 
 @Component
-public class EmpresaPrivadaValidator extends EmpresaValidator implements ConstraintValidator<ValidarEmpresaPrivada, DatosTitularesDto> {
+public class EmpresaPrivadaValidator extends EmpresaValidator implements ConstraintValidator<ValidarEmpresa, DatosTitularesDto> {
 
 	
 
