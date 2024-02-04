@@ -13,8 +13,8 @@ public class Titular {
     @XmlElement(name = "tipo-cliente")
     private Integer tipoCliente;
 
-    @XmlElement(name = "dni-titular")
-    private String dniTitular;
+    @XmlElement(name = "nif-titular")
+    private String nifTitular;
 
     @XmlElement(name = "nombre-titular")
     private String nombreTitular;
@@ -53,12 +53,12 @@ public class Titular {
 		this.tipoCliente = tipoCliente;
 	}
 
-	public String getDniTitular() {
-		return dniTitular;
+	public String getNifTitular() {
+		return nifTitular;
 	}
 
-	public void setDniTitular(String dniTitular) {
-		this.dniTitular = dniTitular;
+	public void setNifTitular(String dniTitular) {
+		this.nifTitular = dniTitular;
 	}
 
 	public String getNombreTitular() {
@@ -137,7 +137,7 @@ public class Titular {
 	public String toString() {
 		return "\n\t\t\tTitular ["
 				+ "\n\t\t\t\ttipoCliente=" + tipoCliente + ", "
-				+ "\n\t\t\t\tdniTitular=" + dniTitular + ", "
+				+ "\n\t\t\t\tdniTitular=" + nifTitular + ", "
 				+ "\n\t\t\t\tnombreTitular=" + nombreTitular + ", "
 				+ "\n\t\t\t\tprimerApellidoTitular=" + primerApellidoTitular + ", "
 				+ "\n\t\t\t\tsegundoApellidoTitular=" + segundoApellidoTitular + ", "
