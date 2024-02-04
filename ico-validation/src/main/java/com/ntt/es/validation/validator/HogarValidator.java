@@ -5,11 +5,9 @@ import javax.validation.ConstraintValidator;
 import org.springframework.stereotype.Component;
 
 import com.ntt.es.model.DatosTitularesDto;
-import com.ntt.es.validation.annotations.ValidarAutonomo;
+import com.ntt.es.validation.annotations.ValidarHogar;
 
 @Component
-public class AutonomoValidator extends PersonaValidator implements ConstraintValidator<ValidarAutonomo, DatosTitularesDto> {
-
-	
+public class HogarValidator extends PersonaValidator implements ConstraintValidator<ValidarHogar, DatosTitularesDto> {
 
 }
