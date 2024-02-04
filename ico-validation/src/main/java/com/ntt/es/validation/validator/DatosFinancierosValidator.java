@@ -10,7 +10,10 @@ import javax.validation.Validation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ntt.es.config.Constantes;
 import com.ntt.es.model.dto.DatosEmpresaGrupoDto;
+import com.ntt.es.model.dto.DatosEmpresaNoGrupoDto;
+import com.ntt.es.model.dto.DatosFinancierosAutonomoDto;
 import com.ntt.es.model.dto.DatosFinancierosDto;
 import com.ntt.es.validation.annotations.ValidarDatosFinancieros;
 import com.ntt.es.validation.utils.ValidationUtils;
@@ -30,7 +33,11 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 
 		boolean isValid = true;
 
-		if (dto.getPerteneceGrupo() && dto.getCuentasConsolidadas()) {
+		if (TipoClienteValidator
+				.esTipoClienteValido(dto.getTipoCliente(),
+						new String[] { Constantes.EMPRESA_PRIVADA, Constantes.EMPRESA_PUBLICA,
+								Constantes.UNIVERSIDAD_ESPANOLA })
+				&& dto.getPerteneceGrupo() && dto.getCuentasConsolidadas()) {
 
 			isValid = ValidationUtils.isValidNifFormat(dto.getNifMatrizGrupo(),
 					"El valor del NIF de la Matriz Grupo es obligatorio", "nifMatrizGrupo", context);
@@ -53,7 +60,10 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 
 		}
 
-		if (dto.getPerteneceGrupo() && !dto.getCuentasConsolidadas()) {
+		else if (TipoClienteValidator.esTipoClienteValido(dto.getTipoCliente(),
+				new String[] { Constantes.EMPRESA_PRIVADA, Constantes.EMPRESA_PUBLICA,
+						Constantes.UNIVERSIDAD_ESPANOLA })
+				&& dto.getPerteneceGrupo() && !dto.getCuentasConsolidadas()) {
 
 			isValid = ValidationUtils.isValidNifFormat(dto.getNifMatrizGrupo(),
 					"El valor del NIF de la Matriz Grupo es obligatorio", "nifMatrizGrupo", context);
@@ -61,21 +71,76 @@ public class DatosFinancierosValidator implements ConstraintValidator<ValidarDat
 					"El país del domicilio de la Matriz Grupo es obligatorio.", "paisDomicilioMatrizGrupo", context);
 
 			for (int i = 0; i < dto.getDatosEmpresasGrupo().size(); i++) {
-		        DatosEmpresaGrupoDto empresaDto = dto.getDatosEmpresasGrupo().get(i);
+				DatosEmpresaGrupoDto empresaDto = dto.getDatosEmpresasGrupo().get(i);
 
-		        Set<ConstraintViolation<DatosEmpresaGrupoDto>> violations = Validation.buildDefaultValidatorFactory()
-		                .getValidator().validate(empresaDto);
+				Set<ConstraintViolation<DatosEmpresaGrupoDto>> violations = Validation.buildDefaultValidatorFactory()
+						.getValidator().validate(empresaDto);
 
-		        if (!violations.isEmpty()) {
-		            isValid = false;
-		            for (ConstraintViolation<DatosEmpresaGrupoDto> violation : violations) {
-		                context.disableDefaultConstraintViolation();
-		                context.buildConstraintViolationWithTemplate(violation.getMessage())
-		                        .addPropertyNode("datosEmpresasGrupo[" + i + "]." + violation.getPropertyPath().toString())
-		                        .addConstraintViolation();
-		            }
-		        }
-		    }
+				if (!violations.isEmpty()) {
+					isValid = false;
+					for (ConstraintViolation<DatosEmpresaGrupoDto> violation : violations) {
+						context.disableDefaultConstraintViolation();
+						context.buildConstraintViolationWithTemplate(violation.getMessage())
+								.addPropertyNode(
+										"datosEmpresasGrupo[" + i + "]." + violation.getPropertyPath().toString())
+								.addConstraintViolation();
+					}
+				}
+			}
+		}
+
+		else if (TipoClienteValidator.esTipoClienteValido(dto.getTipoCliente(), new String[] {
+				Constantes.EMPRESA_PRIVADA, Constantes.EMPRESA_PUBLICA, Constantes.UNIVERSIDAD_ESPANOLA })
+				&& !dto.getPerteneceGrupo()) {
+
+			dto.setCuentasConsolidadas(false);
+			dto.setDatosEmpresasGrupo(null);
+
+			for (int i = 0; i < dto.getDatosEmpresasNoGrupo().size(); i++) {
+				DatosEmpresaNoGrupoDto empresaDto = dto.getDatosEmpresasNoGrupo().get(i);
+
+				Set<ConstraintViolation<DatosEmpresaNoGrupoDto>> violations = Validation.buildDefaultValidatorFactory()
+						.getValidator().validate(empresaDto);
+
+				if (!violations.isEmpty()) {
+					isValid = false;
+					for (ConstraintViolation<DatosEmpresaNoGrupoDto> violation : violations) {
+						context.disableDefaultConstraintViolation();
+						context.buildConstraintViolationWithTemplate(violation.getMessage())
+								.addPropertyNode(
+										"datosEmpresasNoGrupo[" + i + "]." + violation.getPropertyPath().toString())
+								.addConstraintViolation();
+					}
+				}
+			}
+
+		}
+
+		else if (TipoClienteValidator.esTipoClienteValido(dto.getTipoCliente(), new String[] { Constantes.AUTONOMO })
+				&& !dto.getPerteneceGrupo()) {
+			
+			dto.setCuentasConsolidadas(false);
+			dto.setDatosEmpresasGrupo(null);
+			dto.setDatosEmpresasNoGrupo(null);
+			
+			for (int i = 0; i < dto.getDatosFinancierosAutonomo().size(); i++) {
+				DatosFinancierosAutonomoDto autonomoDto = dto.getDatosFinancierosAutonomo().get(i);
+
+				Set<ConstraintViolation<DatosFinancierosAutonomoDto>> violations = Validation.buildDefaultValidatorFactory()
+						.getValidator().validate(autonomoDto);
+
+				if (!violations.isEmpty()) {
+					isValid = false;
+					for (ConstraintViolation<DatosFinancierosAutonomoDto> violation : violations) {
+						context.disableDefaultConstraintViolation();
+						context.buildConstraintViolationWithTemplate(violation.getMessage())
+								.addPropertyNode(
+										"datosFinancierosAutonomo[" + i + "]." + violation.getPropertyPath().toString())
+								.addConstraintViolation();
+					}
+				}
+			}
+
 		}
 
 		return isValid;

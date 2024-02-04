@@ -2,6 +2,7 @@ package com.ntt.es.model.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -14,6 +15,9 @@ import lombok.Data;
 @Data
 @ValidarDatosFinancieros
 public class DatosFinancierosDto {
+	
+	@NotEmpty
+	private String tipoCliente;
 	
 	private Boolean perteneceGrupo;
 	
@@ -36,5 +40,9 @@ public class DatosFinancierosDto {
     private String fechaConstitucionEmpresaMatriz;	
    
     private List<DatosEmpresaGrupoDto> datosEmpresasGrupo;
+    
+    private List<DatosEmpresaNoGrupoDto> datosEmpresasNoGrupo;
+    
+    private List<DatosFinancierosAutonomoDto> datosFinancierosAutonomo;
     
 }

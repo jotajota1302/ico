@@ -40,6 +40,11 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 				isValid = false;
 			}
 		}
+		if (Constantes.EMPRESA_PUBLICA.equals(dto.getTipoCliente())) {
+			if (!empresaPublicaValidator.isValid(dto, context)) {
+				isValid = false;
+			}
+		}
 		if (Constantes.UNIVERSIDAD_ESPANOLA.equals(dto.getTipoCliente())) {
 			if (!universidadValidator.isValid(dto, context)) {
 				isValid = false;
@@ -88,7 +93,7 @@ public class TipoClienteValidator implements ConstraintValidator<ValidarTipoClie
 		return isValid;
 	}
 
-	private boolean esTipoClienteValido(String tipoCliente, String[] tiposValidos) {
+	public static boolean esTipoClienteValido(String tipoCliente, String[] tiposValidos) {
 		for (String tipoValido : tiposValidos) {
 			if (tipoValido.equals(tipoCliente)) {
 				return true;
