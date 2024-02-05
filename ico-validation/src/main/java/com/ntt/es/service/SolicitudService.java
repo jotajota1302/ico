@@ -6,7 +6,6 @@ import com.ntt.es.model.dto.DatosAdicionalesDto;
 import com.ntt.es.model.dto.DatosTitularesDto;
 import com.ntt.es.model.dto.SolicitudFinanciacionDto;
 import com.ntt.es.model.xmlbean.Solicitud;
-import com.ntt.es.model.xmlbean.Solicitudes;
 
 public interface SolicitudService {
 	
