@@ -13,10 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ntt.es.model.dto.DatosAdicionalesDto;
 import com.ntt.es.model.dto.DatosTitularesDto;
 import com.ntt.es.model.dto.SolicitudFinanciacionDto;
+import com.ntt.es.model.enums.FaseEnum;
 import com.ntt.es.model.xmlbean.Solicitud;
 import com.ntt.es.service.SolicitudService;
 
@@ -134,6 +136,88 @@ public class SolicitudServiceImpl implements SolicitudService {
 		
 		dto.setEmpresaDigital("S".equalsIgnoreCase(solicitud.getEmpresaDigital()));
 	
+	}
+
+
+	@Override
+	public List<String> cargarDocumentosSolicitud(MultipartFile file, Integer idSolicitud, Integer idTitular, Integer idTipoDoc) {
+		List<String> errores = new ArrayList<String>();
+		
+		try {
+			//Métodos Útiles
+			//file.getOriginalFilename();
+	        //file.getBytes();
+	        
+	        //TODO Obtener Solicitud (idSolicitud)
+	        boolean solicitudOK = false;
+	        if(!solicitudOK) errores.add("Error: No existe una solicitud asociada a ese identificador");
+	        
+	        //TODO Obtener Tipo Documento (idTipoDoc)
+	        boolean tipoDocumentoOK = false;
+	        if(!tipoDocumentoOK) errores.add("Error: No existe un tipo de documento asociado a ese identificador");
+	        
+	        if(idTitular != null) {
+	        	//Asociar el documento al Titular
+	        	
+	        	//TODO Obtener Titular (idTitular)
+		        boolean titularOK = false;
+		        if(!titularOK) errores.add("Error: No existe un titular asociado a ese identificador");
+		        
+		        //TODO Obtener Datos de OpenText (idTitular)
+		        boolean datosOpenTextOK = false;
+		        if(!datosOpenTextOK) errores.add("Error: No existe un tipo de documento asociado a ese identificador del titular");
+		        
+	        } else {
+	        	//Asociar el documento a la solicitud
+	        	
+	        	//TODO Obtener Datos de OpenText (idSolicitud)
+		        boolean datosOpenTextOK = false;
+		        if(!datosOpenTextOK) errores.add("Error: No existe un tipo de documento asociado a ese identificador de la solicitud");
+	        }
+
+	        //TODO Guardar Documento en BBDD y Subir a OT.
+	        boolean subidaOK = false;
+	        if(!subidaOK) errores.add("Error: No se ha podido adjuntar el documento a OpenText");
+	        
+		} catch (Exception e) {
+			errores.add("Error: No se ha podido cargar el documento: "+e.getMessage());
+		}
+
+		return errores;
+	}
+
+
+	@Override
+	public boolean cambiarFase(Integer idSolicitud, Integer idFase) {
+		
+		// TODO Recuperar Datos Relevantes para el cambio de solicitud (idSolicitud).
+		SolicitudFinanciacionDto solicitudDto = new SolicitudFinanciacionDto();
+		FaseEnum fase = null;
+		try {
+			fase = FaseEnum.getByCode(idFase.toString());
+		} catch(Exception e) {
+			return false;
+		}
+		
+		return validaCambioFase(fase, solicitudDto);
+	}
+
+
+	private boolean validaCambioFase(FaseEnum fase, SolicitudFinanciacionDto solicitudDto) {
+		// TODO Logica si aplica
+		
+		switch(fase) {
+		case FASE_1:
+			//TODO Lógica Validacion para pasar a Fase 1.
+			//TODO Si se cumple hacer el cambio de la solicitud a Fase 1.
+			return true;
+		case FASE_2:
+			//TODO Lógica Validacion para pasar a Fase 2.
+			//TODO Si se cumple hacer el cambio de la solicitud a Fase 2.
+			return true;
+		default:
+			return false;
+		}
 	}
 	
 }

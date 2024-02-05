@@ -135,6 +135,35 @@ public class SolicitudController {
 		}
 	}
 	
+	//Documentación Manual
 	
+	@PostMapping(path = "/attachFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> cargarDocumentoSolicitud(
+    		@RequestParam("file") MultipartFile file,
+    		@RequestParam("idSolicitud") Integer idSolicitud,
+    		@RequestParam(name = "idTitular", required = false) Integer idTitular,
+    		@RequestParam("idTipoDocumento") Integer idTipoDocumento) {
+		
+		List<String> errores = solicitudService.cargarDocumentosSolicitud(file, idSolicitud, idTitular, idTipoDocumento);
+	
+		if(errores.isEmpty()) {
+			return ResponseEntity.ok("Documento guardado correctamente.");
+		} else {
+			return ResponseEntity.ok(errores);
+		}
+	}
+	
+	@PostMapping("/changeFase")
+    public ResponseEntity<?> cambiarFase(
+    		@RequestParam("idSolicitud") Integer idSolicitud,
+    		@RequestParam("idFase") Integer idFase) {
+		boolean accionRealizada = solicitudService.cambiarFase(idSolicitud, idFase);
+		
+		if(accionRealizada) {
+			return ResponseEntity.ok("La solicitud ha cambiado de fase correctamente.");
+		} else {
+			return ResponseEntity.ok("La solicitud no ha cambiado de fase.");
+		}
+	}
 
 }
