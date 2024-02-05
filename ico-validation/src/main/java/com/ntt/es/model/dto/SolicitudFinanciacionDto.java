@@ -1,6 +1,5 @@
 package com.ntt.es.model.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
