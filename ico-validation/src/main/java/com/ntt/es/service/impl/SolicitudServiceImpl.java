@@ -63,24 +63,14 @@ public class SolicitudServiceImpl implements SolicitudService {
 
 	public List<String> validate(SolicitudFinanciacionDto solicitudDto, boolean cargaSolicitudes) {
 
-		//convertir a DTO		
-		
+		//convertir a DTO				
 		List<String> errores = new ArrayList<>();
 		
 		// Obtén el validador
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
-
-		// Crea tu objeto a validar o lo que conviertes del xml
-
-		SolicitudFinanciacionDto solicitud = new SolicitudFinanciacionDto();
-		solicitud.setLinea("ICO MRR Promoción Vivienda Social");
 		
-		if(solicitudDto != null) {
-			solicitud = solicitudDto;
-		}
-		
-		final SolicitudFinanciacionDto solicitudValidate = solicitud;
+		final SolicitudFinanciacionDto solicitudValidate = solicitudDto;
 
 		// Realiza la validación
 		Set<ConstraintViolation<SolicitudFinanciacionDto>> violations = validator.validate(solicitudValidate);
