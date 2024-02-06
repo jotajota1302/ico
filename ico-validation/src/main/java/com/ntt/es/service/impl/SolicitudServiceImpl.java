@@ -209,5 +209,49 @@ public class SolicitudServiceImpl implements SolicitudService {
 			return false;
 		}
 	}
+
+
+	@Override
+	public Boolean checkValidacionesAprobar(Integer idSolicitud) {
+		
+		//TODO Validación 1 - Repositorio Validar Validación Documental
+		boolean validacionDocumental = true;
+		/*
+		SELECT * FROM MRR_SOLICITUD SOLICITUD
+		INNER JOIN MRR_SOLICITUD_CLIENTE SOLTITULAR
+		ON SOLICITUD.ID = SOLTITULAR.ID_SOLICITUD
+		INNER JOIN MRR_SOLIC_DOCUMENTO DOCUMENTO
+		ON DOCUMENTO.ID_SOLICITUD_CLIENTE = SOLTITULAR.ID
+		WHERE SOLICITUD.ID  = '?';
+		*/
+		
+		//TODO Validación 2 - Repositorio Validar NIF
+		boolean validacionNif = true;
+		
+		/*
+		SELECT COUNT(*) 
+		FROM MRR_TRAMITACION TRAMIT
+		INNER JOIN MRR_TRAMIT_RESUMEN_ANALISIS RESUMEN
+		ON TRAMIT.ID = RESUMEN.ID_TRAMITACION 
+		INNER JOIN MRR_TRAMIT_VALID_NIF VALIDANIF 
+		ON VALIDANIF.ID_TRAMIT_RESUMEN = RESUMEN.ID
+		WHERE TRAMIT.ID_SOLICITUD = '?' AND VALIDANIF.RESULTADO = 1;
+		*/
+		
+		//TODO Validación 3 - Repositorio Validar Concurso
+		boolean validacionConcurso = true;
+		
+		/*
+		SELECT COUNT(*) 
+		FROM MRR_TRAMITACION TRAMIT
+		INNER JOIN MRR_TRAMIT_RESUMEN_ANALISIS RESUMEN
+		ON TRAMIT.ID = RESUMEN.ID_TRAMITACION
+		INNER JOIN MRR_TRAMIT_CONCURSO_SOLIC CONCURSO
+		ON CONCURSO.ID_TRAMIT_RESUMEN = RESUMEN.ID 
+		WHERE TRAMIT.ID_SOLICITUD = '?' AND CONCURSO.RESULTADO = 1;
+		*/
+		
+		return validacionDocumental && validacionNif && validacionConcurso;
+	}
 	
 }

@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -153,6 +154,8 @@ public class SolicitudController {
 		}
 	}
 	
+	// Cambio de Fase
+	
 	@PostMapping("/changeFase")
     public ResponseEntity<?> cambiarFase(
     		@RequestParam("idSolicitud") Integer idSolicitud,
@@ -165,5 +168,12 @@ public class SolicitudController {
 			return ResponseEntity.ok("La solicitud no ha cambiado de fase.");
 		}
 	}
+	
+	// Validaciones Aprobación Solicitud
+	@GetMapping("/checkValidacionesAprobar")
+    public Boolean checkValidacionesAprobar(@RequestParam("idSolicitud") Integer idSolicitud) {
+		return solicitudService.checkValidacionesAprobar(idSolicitud);
+	}
+	
 
 }

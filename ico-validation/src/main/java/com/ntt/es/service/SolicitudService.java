@@ -26,5 +26,8 @@ public interface SolicitudService {
 
 	//Control de Fases
 	public boolean cambiarFase(Integer idSolicitud, Integer idFase);
+
+	//Validaciones (Flujo Aprobar Solicitud)
+	public Boolean checkValidacionesAprobar(Integer idSolicitud);
 	
 }
